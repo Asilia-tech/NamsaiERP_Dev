@@ -35,7 +35,7 @@ class _SingleTeacherReportState extends State<SingleTeacherReport> {
   List<dynamic> teacherIdList = [];
   String teacherName = "";
   String teacherId = "";
-  String msg = 'Please choose teacher name to generate report';
+  String msg = 'teacherreportwarning'.tr;
   List<dynamic> finalMap = [];
   bool _isFind = false;
   Uint8List webImage = Uint8List(8);
@@ -170,8 +170,8 @@ class _SingleTeacherReportState extends State<SingleTeacherReport> {
                     // ),
 
                     UtilsWidgets.buildDatePicker(
-                      'Choose Start Date',
-                      'Choose Start Date',
+                      'choosestartdate'.tr,
+                      'choosestartdate'.tr,
                       _startDateText,
                       (val) {
                         setState(() {
@@ -181,20 +181,22 @@ class _SingleTeacherReportState extends State<SingleTeacherReport> {
                       firstDate: DateTime(DateTime.now().year - 1),
                       lastDate: DateTime(DateTime.now().year + 1),
                     ),
-                    UtilsWidgets.buildDatePicker('Choose End Date',
-                        'Choose End Date', _endDateText, (val) {},
-                        firstDate: DateTime.parse(_startDateText.text)
-                            .subtract(Duration(days: 0)),
-                        lastDate: DateTime(
-                            DateTime.parse(_startDateText.text).year + 1)),
+                    UtilsWidgets.buildDatePicker(
+                      'chooseenddate'.tr,
+                      'chooseenddate'.tr,
+                      _endDateText, 
+                      (val) {},
+                      firstDate: DateTime.parse(_startDateText.text).subtract(Duration(days: 0)),
+                      lastDate: DateTime(DateTime.parse(_startDateText.text).year + 1)
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: UtilsWidgets.searchAbleDropDown(
                           context,
                           teacherNameList,
                           teacherName,
-                          'Choose Teacher Name',
-                          'Choose Teacher Name',
+                          'chooseteachername'.tr,
+                          'chooseteachername'.tr,
                           const Icon(Icons.search),
                           (value) {
                             setState(() {
@@ -203,14 +205,14 @@ class _SingleTeacherReportState extends State<SingleTeacherReport> {
                                   teacherNameList.indexOf(teacherName)];
                             });
                           },
-                          'Choose Teacher Name',
+                          'chooseteachername'.tr,
                           Colors.black,
-                          'Choose Teacher Name',
+                          'chooseteachername'.tr,
                           (value) {
-                            if (value == 'Choose Teacher Name' ||
+                            if (value == 'chooseteachername'.tr ||
                                 value == null ||
                                 value.toString().isEmpty) {
-                              return 'Please Choose Teacher Name';
+                              return 'please'.tr + 'chooseteachername'.tr;
                             }
                             return null;
                           }),
@@ -223,7 +225,7 @@ class _SingleTeacherReportState extends State<SingleTeacherReport> {
                                 child: CircularProgressIndicator(),
                               )
                             : UtilsWidgets.buildSqureBtn(
-                                'Search',
+                                'search'.tr,
                                 () {
                                   if (_formKey.currentState!.validate()) {
                                     getHistory();
@@ -235,7 +237,7 @@ class _SingleTeacherReportState extends State<SingleTeacherReport> {
                         SizedBox(width: 10),
                         _isFind
                             ? UtilsWidgets.buildSqureBtn(
-                                'Download',
+                                'download'.tr,
                                 () async {
                                   reportGenerate();
                                 },
@@ -266,12 +268,12 @@ class _SingleTeacherReportState extends State<SingleTeacherReport> {
                         horizontalMargin: 10,
                         columnSpacing: 15,
                         arrowHeadColor: Colors.black,
-                        columns: const [
-                          DataColumn(label: Text('Name')),
-                          DataColumn(label: Text('Date')),
-                          DataColumn(label: Text('In Time')),
-                          DataColumn(label: Text('Out Time')),
-                          DataColumn(label: Text('Total Time')),
+                        columns: [
+                          DataColumn(label: Text('teachername'.tr)),
+                          DataColumn(label: Text('date'.tr)),
+                          DataColumn(label: Text('In'.tr)),
+                          DataColumn(label: Text('Out'.tr)),
+                          DataColumn(label: Text('totaltime'.tr)),
                         ],
                         rowsPerPage: 10,
                       ),

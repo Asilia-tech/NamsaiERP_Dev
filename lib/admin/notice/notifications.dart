@@ -3,6 +3,7 @@ import 'package:numsai/admin/notice/add_notices.dart';
 import 'package:numsai/admin/notice/notice_receive.dart';
 import 'package:numsai/admin/notice/notice_send.dart';
 import 'package:numsai/constants.dart';
+import 'package:get/get.dart';
 
 class Notifications extends StatefulWidget {
   @override
@@ -30,17 +31,17 @@ class _NotificationState extends State<Notifications>
               kToolbarHeight, // Use MediaQuery for full height
           alignment: Alignment.center,
           child: Text(
-            'Notifications',
+            'notifications'.tr,
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Constants.primaryColor),
           ),
         ),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [
-            Tab(text: 'Create Notification'),
-            Tab(text: 'Sent Notifications'),
-            Tab(text: 'Received Notifications'),
+          tabs: [
+            Tab(text: 'createnotif'.tr),
+            Tab(text: 'sentnotif'.tr),
+            Tab(text: 'receivednotif'.tr),
           ],
           indicator: BoxDecoration(
             color: Constants.primaryColor,

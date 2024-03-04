@@ -61,10 +61,10 @@ class _NoticeSendState extends State<NoticeSend> {
                       icon: Icon(Icons.delete),
                       onPressed: () {
                         UtilsWidgets.bottomDialogs(
-                            'Do you really want to delete this notice?',
-                            'Delete Notice',
-                            'No',
-                            'Yes',
+                            'deletenoticealert'.tr,
+                            'deletenotice'.tr,
+                            'no'.tr,
+                            'yes'.tr,
                             context, () {
                           Navigator.of(context).pop();
                         }, () async {

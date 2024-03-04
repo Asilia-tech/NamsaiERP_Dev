@@ -22,7 +22,7 @@ class _SchoolListState extends State<SchoolList> {
   List<dynamic> finalMap = [];
   bool _isLoading = false;
   bool _isFind = false;
-  String msg = "Please Wait...";
+  String msg = 'please'.tr + 'wait'.tr;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _SchoolListState extends State<SchoolList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UtilsWidgets.buildAppBar(context, 'All School'),
+      appBar: UtilsWidgets.buildAppBar(context, 'allschools'.tr),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -43,7 +43,7 @@ class _SchoolListState extends State<SchoolList> {
                   ? UtilsWidgets.drawTable(
                       [
                           DataColumn(
-                            label: Text('Name'),
+                            label: Text('schoolname'.tr),
                             onSort: (int columnIndex, bool ascending) {
                               finalMap.sort((user1, user2) => compareString(
                                   isAscending,
@@ -54,8 +54,9 @@ class _SchoolListState extends State<SchoolList> {
                               });
                             },
                           ),
-                          DataColumn(label: Text('udise'.toUpperCase())),
-                          DataColumn(label: Text('Edit'))
+                          DataColumn(label: Text('Udise'.toUpperCase())),
+                          DataColumn(label: Text('edit'.tr)),
+                          DataColumn(label: Text('Delete'))
                         ],
                       finalMap
                           .map((e) => DataRow(cells: [
@@ -71,10 +72,25 @@ class _SchoolListState extends State<SchoolList> {
                                       Icons.mode_edit,
                                       color: Colors.blue,
                                     ),
-                                    label: const Text(
-                                      'Edit',
+                                    label: Text(
+                                      'edit'.tr,
                                       style: TextStyle(
                                           color: Colors.blue,
+                                          decoration: TextDecoration.underline),
+                                    ))),
+                                DataCell(TextButton.icon(
+                                    onPressed: () {
+                                      // removeSchool(e['udise']);
+                                      
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                    label: Text(
+                                      'Delete',
+                                      style: TextStyle(
+                                          color: Colors.red,
                                           decoration: TextDecoration.underline),
                                     ))),
                               ]))
@@ -105,7 +121,7 @@ class _SchoolListState extends State<SchoolList> {
     setState(() {
       finalMap.clear();
       _isFind = false;
-      msg = 'Please Wait...';
+      msg = 'please'.tr + 'wait'.tr;
     });
     try {
       String uri = Constants.SCHOOL_URL + '/schoollist';
@@ -128,5 +144,35 @@ class _SchoolListState extends State<SchoolList> {
     } catch (e) {
       // UtilsWidgets.showToastFunc(e.toString());
     }
+  }
+
+   Future removeSchool(String udise) async {
+    setState(() {
+      _isLoading = true;
+    });
+    String uri = Constants.SCHOOL_URL + "/removeschool";
+    Map params = {
+      'udise': udise,
+    };
+    try {
+      var response = await http.post(Uri.parse(uri), body: jsonEncode(params));
+      if (response.statusCode == 200) {
+        setState(() {
+          Map infoMap = jsonDecode(response.body);
+          UtilsWidgets.showGetDialog(context, infoMap['message'], Colors.green);
+          getOfflineData();
+          // print(infoMap['message']);
+        });
+      } else {
+        UtilsWidgets.showToastFunc('Server Error ${response.statusCode}');
+        // print(response.statusCode);
+      }
+    } catch (e) {
+      UtilsWidgets.showToastFunc(e.toString());
+      // print(e.toString());
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 }

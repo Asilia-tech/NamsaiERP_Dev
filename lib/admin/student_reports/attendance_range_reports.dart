@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 import 'package:numsai/constants.dart';
 import 'package:numsai/utils/custom_datatable.dart';
 import 'package:numsai/utils/function_utils.dart';
@@ -32,7 +33,7 @@ class _MonthlyAttendanceReportScreenState
   List<String> status = [];
   List<String> studentId = [];
   List<String> studentName = [];
-  String msg = 'Please choose date range to generate report';
+  String msg = 'teacherreportwarning'.tr;
   List<dynamic> blockList = [];
   String blockName = "";
   List<dynamic> clusterList = [];
@@ -69,8 +70,8 @@ class _MonthlyAttendanceReportScreenState
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.48,
                           child: UtilsWidgets.buildDatePicker(
-                            'Choose Start Date',
-                            'Choose Start Date',
+                            'choosestartdate'.tr,
+                            'choosestartdate'.tr,
                             _startDateText,
                             (val) {
                               setState(() {
@@ -83,13 +84,13 @@ class _MonthlyAttendanceReportScreenState
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.52,
-                          child: UtilsWidgets.buildDatePicker('Choose End Date',
-                              'Choose End Date', _endDateText, (val) {},
-                              firstDate: DateTime.parse(_startDateText.text)
-                                  .subtract(Duration(days: 0)),
-                              lastDate: DateTime(
-                                  DateTime.parse(_startDateText.text).year +
-                                      1)),
+                          child: UtilsWidgets.buildDatePicker(
+                            'chooseenddate'.tr,
+                            'chooseenddate'.tr,
+                            _endDateText, 
+                            (val) {},
+                            firstDate: DateTime.parse(_startDateText.text).subtract(Duration(days: 0)),
+                            lastDate: DateTime(DateTime.parse(_startDateText.text).year + 1)),
                         ),
                       ],
                     ),
@@ -100,8 +101,8 @@ class _MonthlyAttendanceReportScreenState
                             width: MediaQuery.of(context).size.width * 0.48,
                             child: UtilsWidgets.dropDownButton(
                                 context,
-                                'Choose level',
-                                'Choose level',
+                                'studentreportlevel'.tr,
+                                'studentreportlevel'.tr,
                                 level2Name,
                                 level2List, (p0) {
                               setState(() {
@@ -123,7 +124,7 @@ class _MonthlyAttendanceReportScreenState
                                         context,
                                         blockList,
                                         blockName,
-                                        'Choose block',
+                                        'chooseblock'.tr,
                                         blockName,
                                         const Icon(Icons.search),
                                         (value) {
@@ -139,14 +140,14 @@ class _MonthlyAttendanceReportScreenState
                                             });
                                           }
                                         },
-                                        'Choose block',
+                                        'chooseblock'.tr,
                                         Colors.black,
-                                        'Choose block',
+                                        'chooseblock'.tr,
                                         (value) {
-                                          if (value == 'Choose block' ||
+                                          if (value == 'chooseblock'.tr ||
                                               value == null ||
                                               value.toString().isEmpty) {
-                                            return 'Please Choose block';
+                                            return 'please'.tr + 'chooseblock'.tr;
                                           }
                                           return null;
                                         }))
@@ -165,7 +166,7 @@ class _MonthlyAttendanceReportScreenState
                                         context,
                                         clusterList,
                                         clusterName,
-                                        'Choose cluster',
+                                        'choosecluster'.tr,
                                         clusterName,
                                         const Icon(Icons.search),
                                         (value) {
@@ -184,14 +185,14 @@ class _MonthlyAttendanceReportScreenState
                                             });
                                           }
                                         },
-                                        'Choose cluster',
+                                        'choosecluster'.tr,
                                         Colors.black,
-                                        'Choose cluster',
+                                        'choosecluster'.tr,
                                         (value) {
-                                          if (value == 'Choose cluster' ||
+                                          if (value == 'choosecluster'.tr ||
                                               value == null ||
                                               value.toString().isEmpty) {
-                                            return 'Please Choose cluster';
+                                            return 'please'.tr + 'choosecluster'.tr;
                                           }
                                           return null;
                                         }))
@@ -208,7 +209,7 @@ class _MonthlyAttendanceReportScreenState
                                         context,
                                         schoolList,
                                         schoolName,
-                                        'Choose school',
+                                        'chooseschool'.tr,
                                         schoolName,
                                         const Icon(Icons.search),
                                         (value) {
@@ -220,14 +221,14 @@ class _MonthlyAttendanceReportScreenState
                                             });
                                           }
                                         },
-                                        'Choose school',
+                                        'chooseschool'.tr,
                                         Colors.black,
-                                        'Choose school',
+                                        'chooseschool'.tr,
                                         (value) {
-                                          if (value == 'Choose school' ||
+                                          if (value == 'chooseschool'.tr ||
                                               value == null ||
                                               value.toString().isEmpty) {
-                                            return 'Please Choose school';
+                                            return 'please'.tr + 'chooseschool'.tr;
                                           }
                                           return null;
                                         }))
@@ -243,7 +244,7 @@ class _MonthlyAttendanceReportScreenState
                                 child: CircularProgressIndicator(),
                               )
                             : UtilsWidgets.buildSqureBtn(
-                                'Search',
+                                'search'.tr,
                                 () {
                                   if (_formKey.currentState!.validate()) {
                                     getHistory();
@@ -255,7 +256,7 @@ class _MonthlyAttendanceReportScreenState
                         SizedBox(width: 10),
                         isFind
                             ? UtilsWidgets.buildSqureBtn(
-                                'Download',
+                                'download'.tr,
                                 () async {
                                   reportGenerate();
                                 },
@@ -286,12 +287,12 @@ class _MonthlyAttendanceReportScreenState
                         horizontalMargin: 10,
                         columnSpacing: 15,
                         arrowHeadColor: Colors.black,
-                        columns: const [
-                          DataColumn(label: Text('Date')),
-                          DataColumn(label: Text('ID')),
-                          DataColumn(label: Text('Name')),
-                          DataColumn(label: Text('Class')),
-                          DataColumn(label: Text('Status')),
+                        columns: [
+                          DataColumn(label: Text('date'.tr)),
+                          DataColumn(label: Text('studentid'.tr)),
+                          DataColumn(label: Text('studentname'.tr)),
+                          DataColumn(label: Text('class'.tr)),
+                          DataColumn(label: Text('status'.tr)),
                         ],
                         rowsPerPage: 10,
                       ),

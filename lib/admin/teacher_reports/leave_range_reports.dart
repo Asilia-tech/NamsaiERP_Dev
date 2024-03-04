@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 import 'package:numsai/constants.dart';
 import 'package:numsai/utils/custom_datatable.dart';
 import 'package:numsai/utils/function_utils.dart';
@@ -32,7 +33,7 @@ class _MonthlyLeaveScreenState extends State<MonthlyLeaveScreen> {
   List<String> attendTotalTime = [];
   List<String> teacherId = [];
   List<String> userName = [];
-  String msg = 'Please choose date range to generate report';
+  String msg = 'teacherreportwarning'.tr;
   Uint8List webImage = Uint8List(8);
   List<dynamic> blockList = [];
   String blockName = "";
@@ -171,8 +172,8 @@ class _MonthlyLeaveScreenState extends State<MonthlyLeaveScreen> {
                     // ),
 
                     UtilsWidgets.buildDatePicker(
-                      'Choose Start Date',
-                      'Choose Start Date',
+                      'choosestartdate'.tr,
+                      'choosestartdate'.tr,
                       _startDateText,
                       (val) {
                         setState(() {
@@ -182,12 +183,14 @@ class _MonthlyLeaveScreenState extends State<MonthlyLeaveScreen> {
                       firstDate: DateTime(DateTime.now().year - 1),
                       lastDate: DateTime(DateTime.now().year + 1),
                     ),
-                    UtilsWidgets.buildDatePicker('Choose End Date',
-                        'Choose End Date', _endDateText, (val) {},
-                        firstDate: DateTime.parse(_startDateText.text)
-                            .subtract(Duration(days: 0)),
-                        lastDate: DateTime(
-                            DateTime.parse(_startDateText.text).year + 1)),
+                    UtilsWidgets.buildDatePicker(
+                      'chooseenddate'.tr,
+                      'chooseenddate'.tr, 
+                      _endDateText, 
+                      (val) {},
+                      firstDate: DateTime.parse(_startDateText.text).subtract(Duration(days: 0)),
+                      lastDate: DateTime(DateTime.parse(_startDateText.text).year + 1)
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -196,7 +199,7 @@ class _MonthlyLeaveScreenState extends State<MonthlyLeaveScreen> {
                                 child: CircularProgressIndicator(),
                               )
                             : UtilsWidgets.buildSqureBtn(
-                                'Search',
+                                'search'.tr,
                                 () {
                                   if (_formKey.currentState!.validate()) {
                                     getLeaveInfo();
@@ -208,7 +211,7 @@ class _MonthlyLeaveScreenState extends State<MonthlyLeaveScreen> {
                         SizedBox(width: 10),
                         isFind
                             ? UtilsWidgets.buildSqureBtn(
-                                'Download',
+                                'download'.tr,
                                 () async {
                                   reportGenerate();
                                 },
@@ -239,12 +242,12 @@ class _MonthlyLeaveScreenState extends State<MonthlyLeaveScreen> {
                         horizontalMargin: 10,
                         columnSpacing: 10,
                         arrowHeadColor: Colors.black,
-                        columns: const [
-                          DataColumn(label: Text('Name')),
-                          DataColumn(label: Text('Leave Type')),
-                          DataColumn(label: Text('Start Date')),
-                          DataColumn(label: Text('End Date')),
-                          DataColumn(label: Text('Total Leave')),
+                        columns: [
+                          DataColumn(label: Text('teachername'.tr)),
+                          DataColumn(label: Text('leavetype'.tr)),
+                          DataColumn(label: Text('startdate'.tr)),
+                          DataColumn(label: Text('enddate'.tr)),
+                          DataColumn(label: Text('totalleave'.tr)),
                         ],
                         rowsPerPage: 10,
                       ),

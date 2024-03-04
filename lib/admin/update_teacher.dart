@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:numsai/constants.dart';
@@ -69,7 +70,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: UtilsWidgets.buildAppBar(
-          context, _istransfer ? 'Transfer Teacher' : 'Update Teacher'),
+          context, _istransfer ? 'transferteacher'.tr : 'updateteacher'.tr),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Center(
@@ -83,14 +84,14 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                             ? Column(
                                 children: [
                                   UtilsWidgets.kayValueWidget(
-                                      'Name', _nameText.text, context),
+                                      'teachername'.tr, _nameText.text, context),
                                   UtilsWidgets.kayValueWidget(
-                                      'Mobile', _mobileText.text, context),
+                                      'mobile'.tr, _mobileText.text, context),
                                   UtilsWidgets.searchAbleDropDown(
                                       context,
                                       blockList,
                                       blockName,
-                                      'Choose block',
+                                      'chooseblock'.tr,
                                       blockName,
                                       const Icon(Icons.search),
                                       (value) {
@@ -106,14 +107,14 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                           });
                                         }
                                       },
-                                      'Choose block',
+                                      'chooseblock'.tr,
                                       Colors.black,
-                                      'Choose block',
+                                      'chooseblock'.tr,
                                       (value) {
-                                        if (value == 'Choose block' ||
+                                        if (value == 'chooseblock'.tr ||
                                             value == null ||
                                             value.toString().isEmpty) {
-                                          return 'Please Choose block';
+                                          return 'please'.tr + 'chooseblock'.tr;
                                         }
                                         return null;
                                       }),
@@ -121,7 +122,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                       context,
                                       clusterList,
                                       clusterName,
-                                      'Choose cluster',
+                                      'choosecluster'.tr,
                                       clusterName,
                                       const Icon(Icons.search),
                                       (value) {
@@ -140,14 +141,14 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                           });
                                         }
                                       },
-                                      'Choose cluster',
+                                      'choosecluster'.tr,
                                       Colors.black,
-                                      'Choose cluster',
+                                      'choosecluster'.tr,
                                       (value) {
-                                        if (value == 'Choose cluster' ||
+                                        if (value == 'choosecluster'.tr ||
                                             value == null ||
                                             value.toString().isEmpty) {
-                                          return 'Please Choose cluster';
+                                          return 'please'.tr + 'choosecluster'.tr;
                                         }
                                         return null;
                                       }),
@@ -155,7 +156,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                       context,
                                       schoolList,
                                       schoolName,
-                                      'Choose school',
+                                      'chooseschool'.tr,
                                       schoolName,
                                       const Icon(Icons.search),
                                       (value) {
@@ -167,14 +168,14 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                           });
                                         }
                                       },
-                                      'Choose school',
+                                      'chooseschool'.tr,
                                       Colors.black,
-                                      'Choose school',
+                                      'chooseschool'.tr,
                                       (value) {
-                                        if (value == 'Choose school' ||
+                                        if (value == 'chooseschool'.tr ||
                                             value == null ||
                                             value.toString().isEmpty) {
-                                          return 'Please Choose school';
+                                          return 'please'.tr + 'chooseschool'.tr;
                                         }
                                         return null;
                                       }),
@@ -184,26 +185,26 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                 children: [
                                   UtilsWidgets.textFormField(
                                     context,
-                                    "Enter Teacher Name",
+                                    'tnametf'.tr,
                                     "Eg. Rohan Thakur",
                                     (p0) {
                                       if (p0 == null || p0.isEmpty) {
-                                        return "Please Enter Teacher Name";
+                                        return 'please'.tr + "tnametf".tr;
                                       }
                                     },
                                     _nameText,
                                   ),
                                   UtilsWidgets.textFormField(
                                     context,
-                                    'Enter Mobile Number',
+                                    "tmobiletf".tr,
                                     'Eg. 9876543211',
                                     textInputType: TextInputType.phone,
                                     (p0) {
                                       if (p0 == null || p0.isEmpty)
-                                        return 'Please Enter mobile number';
+                                        return 'please'.tr + "tmobiletf".tr;
                                       else if (Utils.validateMobile(
                                           p0.toString())) {
-                                        return "Please Enter valid mobile number";
+                                        return "mobilevtf".tr;
                                       }
                                     },
                                     _mobileText,
@@ -213,11 +214,13 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                   ),
                                   UtilsWidgets.textFormField(
                                     context,
-                                    "Enter aadhar number",
+                                    "taadhaartf".tr,
                                     "Eg. 1234 1234 1234",
                                     (p0) {
                                       if (p0 == null || p0.isEmpty) {
-                                        return "Please enter user aadhar number";
+                                        return 'please'.tr + "taadhaartf".tr;
+                                      } else if (_aadharText.text.length != 12) {
+                                        return "aadhaarvtf".tr;
                                       }
                                     },
                                     _aadharText,
@@ -226,14 +229,14 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                     ],
                                   ),
                                   UtilsWidgets.buildDatePicker(
-                                    'Choose date of birth',
-                                    'Choose date of birth',
+                                    'dobtf'.tr,
+                                    'dobtf'.tr,
                                     _dobDateText,
                                     (val) {},
                                     firstDate: DateTime(1900),
                                     lastDate: DateTime(2100),
                                   ),
-                                  UtilsWidgets.decorContainer('Choose Gender', [
+                                  UtilsWidgets.decorContainer('choosegender'.tr, [
                                     Row(
                                       children: [
                                         Radio(
@@ -244,7 +247,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                                 gender = value.toString();
                                               });
                                             }),
-                                        Text('Male')
+                                        Text('gendermale'.tr)
                                       ],
                                     ),
                                     Row(
@@ -257,7 +260,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                                 gender = value.toString();
                                               });
                                             }),
-                                        Text('Female')
+                                        Text('genderfemale'.tr)
                                       ],
                                     ),
                                     Row(
@@ -270,7 +273,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                                 gender = value.toString();
                                               });
                                             }),
-                                        Text('Other')
+                                        Text('genderother'.tr)
                                       ],
                                     ),
                                   ]),
@@ -280,7 +283,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                       initiallyExpanded: true,
                                       maintainState: true,
                                       title: Text(
-                                        'Caste Details',
+                                        'castedetails'.tr,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 14,
@@ -305,12 +308,12 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                                 child:
                                                     UtilsWidgets.textFormField(
                                                   context,
-                                                  "Category",
-                                                  "Category",
+                                                  'choosecategory'.tr,
+                                                  'choosecategory'.tr,
                                                   (p0) {
                                                     if (p0 == null ||
                                                         p0.isEmpty) {
-                                                      return "Please Enter category";
+                                                      return "please".tr + "choosecategory".tr;
                                                     }
                                                   },
                                                   _categoryText,
@@ -324,12 +327,12 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                                 child:
                                                     UtilsWidgets.textFormField(
                                                   context,
-                                                  "Religion",
-                                                  "Religion",
+                                                  'choosereligion'.tr,
+                                                  'choosereligion'.tr,
                                                   (p0) {
                                                     if (p0 == null ||
                                                         p0.isEmpty) {
-                                                      return "Please Enter religion";
+                                                      return "please".tr + 'choosereligion'.tr;
                                                     }
                                                   },
                                                   _religionText,
@@ -348,12 +351,12 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                                 child:
                                                     UtilsWidgets.textFormField(
                                                   context,
-                                                  "Caste",
-                                                  "Caste",
+                                                  "caste".tr,
+                                                  "caste".tr,
                                                   (p0) {
                                                     if (p0 == null ||
                                                         p0.isEmpty) {
-                                                      return "Please Enter caste";
+                                                      return "please".tr + "caste".tr;
                                                     }
                                                   },
                                                   _casteText,
@@ -382,16 +385,16 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                     ),
                                   ),
                                   UtilsWidgets.buildDatePicker(
-                                    'Choose date of service Join',
-                                    'Choose date of service Join',
+                                    'servicejointf'.tr,
+                                    'servicejointf'.tr,
                                     _serviceJoinText,
                                     (val) {},
                                     firstDate: DateTime(1900),
                                     lastDate: DateTime(2100),
                                   ),
                                   UtilsWidgets.buildDatePicker(
-                                    'Choose date of school Join',
-                                    'Choose date of school Join',
+                                    'schooljointf'.tr,
+                                    'schooljointf'.tr,
                                     _schoolJoinText,
                                     (val) {},
                                     firstDate: DateTime(1900),
@@ -399,24 +402,27 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                   ),
                                   UtilsWidgets.textFormField(
                                       context,
-                                      "Enter Teacher Address",
-                                      "Enter Teacher Address", (p0) {
-                                    if (p0 == null || p0.isEmpty) {
-                                      return "Please Enter Address";
-                                    }
-                                  }, _addressText, maxLine: 3),
+                                      'teacheraddress'.tr,
+                                      'teacheraddress'.tr, 
+                                      (p0) {
+                                        if (p0 == null || p0.isEmpty) {
+                                          return 'please'.tr + 'teacheraddress'.tr;
+                                        }
+                                      }, 
+                                      _addressText, maxLine: 3
+                                  ),
                                   SizedBox(height: 10),
                                   UtilsWidgets.dropDownButton(
                                       context,
-                                      'Choose job type',
-                                      'Choose job type',
+                                      'jobtypetf'.tr,
+                                      'jobtypetf'.tr,
                                       jobName,
                                       jobList,
                                       (p0) => setState(() {
                                             jobName = p0;
                                           }), validator: (p0) {
                                     if (jobName == '') {
-                                      return "Please choose job type";
+                                      return "please".tr + "jobtypetf".tr;
                                     }
                                   }, holder: jobName),
                                   Padding(
@@ -425,7 +431,7 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                       initiallyExpanded: true,
                                       maintainState: true,
                                       title: Text(
-                                        'Bank Details',
+                                        'bankdetails'.tr,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 14,
@@ -440,44 +446,44 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                                       children: [
                                         UtilsWidgets.textFormField(
                                           context,
-                                          "Enter bank Name",
+                                          "banknametf".tr,
                                           "Eg. bank",
                                           (p0) {
                                             if (p0 == null || p0.isEmpty) {
-                                              return "Please Enter bank Name";
+                                              return "please".tr + "banknametf".tr;
                                             }
                                           },
                                           _bankNameText,
                                         ),
                                         UtilsWidgets.textFormField(
                                           context,
-                                          "Enter account Name",
-                                          "Enter account Name",
+                                          "accountholdertf".tr,
+                                          "accountholdertf".tr,
                                           (p0) {
                                             if (p0 == null || p0.isEmpty) {
-                                              return "Please Enter account Name";
+                                              return "please".tr + "accountholdertf".tr;
                                             }
                                           },
                                           _accountNameText,
                                         ),
                                         UtilsWidgets.textFormField(
                                           context,
-                                          "Enter account Number",
-                                          "Enter account Number",
+                                          "accountnumbertf".tr,
+                                          "accountnumbertf".tr,
                                           (p0) {
                                             if (p0 == null || p0.isEmpty) {
-                                              return "Please Enter account Number";
+                                              return "please".tr + "accountnumbertf".tr;
                                             }
                                           },
                                           _accountNoText,
                                         ),
                                         UtilsWidgets.textFormField(
                                           context,
-                                          "Enter IFSC Code",
-                                          "Enter IFSC Code",
+                                          "ifsctf".tr,
+                                          "ifsctf".tr,
                                           (p0) {
                                             if (p0 == null || p0.isEmpty) {
-                                              return "Please Enter IFSC Code";
+                                              return "please".tr + "ifsctf".tr;
                                             }
                                           },
                                           _IFSCText,
@@ -504,14 +510,14 @@ class _UpdateTeacherState extends State<UpdateTeacher> {
                             ? const CircularProgressIndicator()
                             : UtilsWidgets.buildRoundBtn(
                                 _istransfer
-                                    ? 'Transfer Teacher'
-                                    : 'Update Teacher', () async {
+                                    ? 'transfer'.tr
+                                    : 'updateteacher'.tr, () async {
                                 if (_formKey.currentState!.validate()) {
                                   UtilsWidgets.bottomDialogs(
-                                      "Please review the information you wish to add.",
-                                      'Alert',
-                                      'Cancel',
-                                      'Submit',
+                                      'addalert'.tr, 
+                                      'alert'.tr,
+                                      'cancel'.tr, 
+                                      'submit'.tr, 
                                       context, () {
                                     Navigator.of(context).pop();
                                   }, () {

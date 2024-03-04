@@ -22,7 +22,7 @@ class _TeacherListState extends State<TeacherList> {
   List<dynamic> finalMap = [];
   bool _isLoading = false;
   bool _isFind = false;
-  String msg = "Please Wait...";
+  String msg = 'please'.tr + 'wait'.tr;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _TeacherListState extends State<TeacherList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UtilsWidgets.buildAppBar(context, 'All Teachers'),
+      appBar: UtilsWidgets.buildAppBar(context, 'allteachers'.tr),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -43,7 +43,7 @@ class _TeacherListState extends State<TeacherList> {
                   ? UtilsWidgets.drawTable(
                       [
                           DataColumn(
-                            label: Text('Name'),
+                            label: Text('teachername'.tr),
                             onSort: (int columnIndex, bool ascending) {
                               finalMap.sort((user1, user2) => compareString(
                                   isAscending,
@@ -54,9 +54,9 @@ class _TeacherListState extends State<TeacherList> {
                               });
                             },
                           ),
-                          DataColumn(label: Text('Mobile')),
-                          DataColumn(label: Text('Edit')),
-                          DataColumn(label: Text('Transfer')),
+                          DataColumn(label: Text('mobile'.tr)),
+                          DataColumn(label: Text('edit'.tr)),
+                          DataColumn(label: Text('transfer'.tr)),
                         ],
                       finalMap
                           .map((e) => DataRow(cells: [
@@ -72,7 +72,7 @@ class _TeacherListState extends State<TeacherList> {
                                       color: Colors.blue,
                                     ),
                                     label: Text(
-                                      'Edit',
+                                      'edit'.tr,
                                       style: TextStyle(
                                           color: Colors.blue,
                                           decoration: TextDecoration.underline),
@@ -87,7 +87,7 @@ class _TeacherListState extends State<TeacherList> {
                                       color: Colors.red,
                                     ),
                                     label: Text(
-                                      'Transfer',
+                                      'transfer'.tr,
                                       style: TextStyle(
                                           color: Colors.red,
                                           decoration: TextDecoration.underline),
@@ -120,7 +120,7 @@ class _TeacherListState extends State<TeacherList> {
     setState(() {
       finalMap.clear();
       _isFind = false;
-      msg = 'Please Wait...';
+      msg = 'please'.tr + 'wait'.tr;
     });
     try {
       String uri = Constants.TEACHER_URL + '/teacherlist';

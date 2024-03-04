@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:get/get.dart';
 import 'package:numsai/constants.dart';
 import 'package:numsai/utils/function_utils.dart';
 import 'package:numsai/utils/widget_utils.dart';
@@ -75,7 +76,7 @@ class _AddSchoolState extends State<AddSchool> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UtilsWidgets.buildAppBar(context, 'Add School'),
+      appBar: UtilsWidgets.buildAppBar(context, 'schooladd'.tr),
       body: SingleChildScrollView(
         child: Form(
             key: _formKey,
@@ -92,8 +93,8 @@ class _AddSchoolState extends State<AddSchool> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
-                        'Basic Information',
+                      Text(
+                        'tbasicinfo'.tr,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -108,14 +109,14 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              'Enter Mobile Number',
+                              "tmobiletf".tr,
                               'Eg. 9876543211',
                               textInputType: TextInputType.phone,
                               (p0) {
                                 if (p0 == null || p0.isEmpty)
-                                  return 'Please Enter mobile number';
+                                  return 'please'.tr + "tmobiletf".tr;
                                 else if (Utils.validateMobile(p0.toString())) {
-                                  return "Please Enter valid mobile number";
+                                  return "mobilevtf".tr;
                                 }
                               },
                               _mobileText,
@@ -129,11 +130,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter school type",
+                              'tschooltype'.tr,
                               "Eg. GUPS",
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter school type";
+                                  return 'please'.tr + 'tschooltype'.tr;
                                 }
                               },
                               _schoolTypeText,
@@ -148,7 +149,7 @@ class _AddSchoolState extends State<AddSchool> {
                                   context,
                                   blockList,
                                   blockName,
-                                  'Choose block',
+                                  'chooseblock'.tr,
                                   blockName,
                                   const Icon(Icons.search),
                                   (value) {
@@ -164,14 +165,14 @@ class _AddSchoolState extends State<AddSchool> {
                                       });
                                     }
                                   },
-                                  'Choose block',
+                                  'chooseblock'.tr,
                                   Colors.black,
-                                  'Choose block',
+                                  'chooseblock'.tr,
                                   (value) {
-                                    if (value == 'Choose block' ||
+                                    if (value == 'chooseblock'.tr ||
                                         value == null ||
                                         value.toString().isEmpty) {
-                                      return 'Please Choose block';
+                                      return 'please'.tr + 'chooseblock'.tr;
                                     }
                                     return null;
                                   })
@@ -181,7 +182,7 @@ class _AddSchoolState extends State<AddSchool> {
                                   context,
                                   clusterList,
                                   clusterName,
-                                  'Choose cluster',
+                                  'choosecluster'.tr,
                                   clusterName,
                                   const Icon(Icons.search),
                                   (value) {
@@ -200,14 +201,14 @@ class _AddSchoolState extends State<AddSchool> {
                                       });
                                     }
                                   },
-                                  'Choose cluster',
+                                  'choosecluster'.tr,
                                   Colors.black,
-                                  'Choose cluster',
+                                  'choosecluster'.tr,
                                   (value) {
-                                    if (value == 'Choose cluster' ||
+                                    if (value == 'choosecluster'.tr ||
                                         value == null ||
                                         value.toString().isEmpty) {
-                                      return 'Please Choose cluster';
+                                      return 'please'.tr + 'choosecluster'.tr;
                                     }
                                     return null;
                                   })
@@ -216,7 +217,7 @@ class _AddSchoolState extends State<AddSchool> {
                               context,
                               schoolList,
                               schoolName,
-                              'Choose school',
+                              'chooseschool'.tr,
                               schoolName,
                               const Icon(Icons.search),
                               (value) {
@@ -228,14 +229,14 @@ class _AddSchoolState extends State<AddSchool> {
                                   });
                                 }
                               },
-                              'Choose school',
+                              'chooseschool'.tr,
                               Colors.black,
-                              'Choose school',
+                              'chooseschool'.tr,
                               (value) {
-                                if (value == 'Choose school' ||
+                                if (value == 'chooseschool'.tr ||
                                     value == null ||
                                     value.toString().isEmpty) {
-                                  return 'Please Choose school';
+                                  return 'please'.tr + 'chooseschool'.tr;
                                 }
                                 return null;
                               }),
@@ -263,7 +264,7 @@ class _AddSchoolState extends State<AddSchool> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Geographic Information',
+                        'tgeographicinfo'.tr,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -278,11 +279,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              'Latitude',
+                              'latitude'.tr,
                               'Eg. 19.09371',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter latitude";
+                                  return 'please'.tr + 'latitude'.tr;
                                 }
                               },
                               _latText,
@@ -294,11 +295,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              'Longitude',
+                              'longitude'.tr,
                               'Eg. 72.9164333',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter longitude";
+                                  return 'please'.tr + 'longitude'.tr;
                                 }
                               },
                               _longText,
@@ -310,11 +311,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              'Enter Geo-radius',
+                              'georadius'.tr,
                               'Eg. 120',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter geo-radius";
+                                  return 'please'.tr + 'georadius'.tr;
                                 }
                               },
                               _geoRadiusText,
@@ -332,11 +333,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 3,
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter school address",
+                              'schooladdress'.tr,
                               "Eg. Namsai",
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter school address";
+                                  return 'please'.tr + 'schooladdress'.tr;
                                 }
                               },
                               _schoolAddressText,
@@ -346,11 +347,11 @@ class _AddSchoolState extends State<AddSchool> {
                           Expanded(
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter pincode",
+                              'pincode'.tr,
                               "Eg. 792103",
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter pincode";
+                                  return 'please'.tr + 'pincode'.tr;
                                 }
                               },
                               _pincodeText,
@@ -375,7 +376,7 @@ class _AddSchoolState extends State<AddSchool> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'School Time',
+                        'tschooltime'.tr,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -389,11 +390,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              'In-time',
+                              'intime'.tr,
                               'Eg. 9:00 AM',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter in-time";
+                                  return 'please'.tr + 'intime'.tr;
                                 } else {
                                   setState(() {
                                     schoolTime['regular']['in'] = p0;
@@ -408,11 +409,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              'Out-time',
+                              'outtime'.tr,
                               'Eg. 3:00 AM',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter out-time";
+                                  return 'please'.tr + 'outtime'.tr;
                                 } else {
                                   setState(() {
                                     schoolTime['regular']['out'] = p0;
@@ -427,11 +428,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              'Total hours',
+                              'totalhours'.tr,
                               'Eg. 7',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter total hours";
+                                  return 'please' + 'totalhours'.tr;
                                 } else {
                                   setState(() {
                                     schoolTime['regular']['total'] = p0;
@@ -458,8 +459,8 @@ class _AddSchoolState extends State<AddSchool> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
-                        'Academic information',
+                      Text(
+                        'tacademicinfo'.tr,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -473,8 +474,8 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 2,
                             child: UtilsWidgets.mutliSelectDropDown(
                               classList,
-                              "temp",
-                              'Choose class(es)',
+                              'chooseclass'.tr,
+                              'chooseclass'.tr,
                               selectedClassList,
                               (value) {
                                 setState(() {
@@ -486,14 +487,14 @@ class _AddSchoolState extends State<AddSchool> {
                                   //     selectedClassList.length, (index) => []);
                                 });
                               },
-                              'Choose classes',
+                              'chooseclass'.tr,
                               Colors.black,
-                              'Choose classes',
+                              'chooseclass'.tr,
                               (value) {
-                                if (value == 'Choose the classes' ||
+                                if (value == 'chooseclass'.tr ||
                                     value == null ||
                                     value.toString().isEmpty) {
-                                  return 'Please choose the classes';
+                                  return 'please'.tr + 'chooseclass'.tr;
                                 }
                                 return null;
                               },
@@ -504,8 +505,8 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.mutliSelectDropDown(
                               divisionList,
-                              "Choose division(s)",
-                              'Choose division(s)',
+                              'choosedivision'.tr,
+                              'choosedivision'.tr,
                               selectedDivisionList,
                               (value) {
                                 setState(() {
@@ -513,14 +514,14 @@ class _AddSchoolState extends State<AddSchool> {
                                   selectedDivisionList = value;
                                 });
                               },
-                              'Choose division',
+                              'choosedivision'.tr,
                               Colors.black,
-                              'Choose division',
+                              'choosedivision'.tr,
                               (value) {
-                                if (value == 'Choose the division' ||
+                                if (value == 'choosedivision'.tr ||
                                     value == null ||
                                     value.toString().isEmpty) {
-                                  return 'Please choose the division';
+                                  return 'please'.tr + 'choosedivision'.tr;
                                 }
                                 return null;
                               },
@@ -531,8 +532,8 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 2,
                             child: UtilsWidgets.mutliSelectDropDown(
                               subjectList,
-                              "Choose subject(s)",
-                              'Choose subject(s)',
+                              'choosesubject'.tr,
+                              'choosesubject'.tr,
                               selectedSubjectList,
                               (value) {
                                 setState(() {
@@ -540,14 +541,14 @@ class _AddSchoolState extends State<AddSchool> {
                                   selectedSubjectList = value;
                                 });
                               },
-                              'Choose subject',
+                              'choosesubject'.tr,
                               Colors.black,
-                              'Choose subject',
+                              'choosesubject'.tr,
                               (value) {
-                                if (value == 'Choose the subject' ||
+                                if (value == 'choosesubject'.tr ||
                                     value == null ||
                                     value.toString().isEmpty) {
-                                  return 'Please choose the subject';
+                                  return 'please'.tr + 'choosesubject'.tr;
                                 }
                                 return null;
                               },
@@ -643,8 +644,8 @@ class _AddSchoolState extends State<AddSchool> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
-                        'Other',
+                      Text(
+                        'genderother'.tr,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -658,11 +659,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 2,
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter total teachers licence required",
+                              'totalteacherlicense'.tr,
                               "Eg. 10",
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter total teachers licence required";
+                                  return 'please'.tr + 'totalteacherlicense'.tr;
                                 }
                               },
                               _totalTeacherText,
@@ -676,11 +677,11 @@ class _AddSchoolState extends State<AddSchool> {
                             flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter total holiday",
+                              'enterholidays'.tr,
                               "Eg. 10",
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return "Please enter total holiday";
+                                  return 'please'.tr + 'enterholidays'.tr;
                                 }
                               },
                               _holidayNumberText,
@@ -693,7 +694,7 @@ class _AddSchoolState extends State<AddSchool> {
                           Expanded(
                             flex: 1,
                             child: UtilsWidgets.buildIconBtn(
-                                'Add', Icon(Icons.add_box), () {
+                                'add'.tr, Icon(Icons.add_box), () {
                               setState(() {
                                 isAdd = false;
                                 count = int.parse(_holidayNumberText.text);
@@ -722,8 +723,8 @@ class _AddSchoolState extends State<AddSchool> {
                                         SizedBox(
                                             width: 250,
                                             child: UtilsWidgets.buildDatePicker(
-                                                "Enter date",
-                                                "Enter date",
+                                                'choosedate'.tr,
+                                                'choosedate'.tr,
                                                 holidayDate[index],
                                                 (val) {},
                                                 firstDate: DateTime(2022),
@@ -734,11 +735,11 @@ class _AddSchoolState extends State<AddSchool> {
                                             width: 250,
                                             child: UtilsWidgets.textFormField(
                                               context,
-                                              "Enter Holiday Name",
-                                              "Enter Holiday Name",
+                                              'holidayname'.tr,
+                                              'holidayname'.tr,
                                               (p0) {
                                                 if (p0 == null || p0.isEmpty) {
-                                                  return "Please Enter Holiday Name";
+                                                  return 'please'.tr + 'holidayname'.tr;
                                                 }
                                               },
                                               holidayName[index],
@@ -748,9 +749,9 @@ class _AddSchoolState extends State<AddSchool> {
                                   ],
                                 );
                               })
-                          : const Center(
+                          : Center(
                               child: Text(
-                                'Please Choose Total Holiday',
+                                'ttotalholiday'.tr,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -760,13 +761,13 @@ class _AddSchoolState extends State<AddSchool> {
                 ),
                 _isLoading
                     ? const CircularProgressIndicator()
-                    : UtilsWidgets.buildRoundBtn("Add School", () async {
+                    : UtilsWidgets.buildRoundBtn('schooladd'.tr, () async {
                         if (_formKey.currentState!.validate()) {
                           UtilsWidgets.bottomDialogs(
-                              "Please review the information",
-                              'Alert',
-                              'Cancel',
-                              'Submit',
+                              'addalert'.tr, 
+                              'alert'.tr,
+                              'cancel'.tr, 
+                              'submit'.tr,
                               context, () {
                             Navigator.of(context).pop();
                           }, () {

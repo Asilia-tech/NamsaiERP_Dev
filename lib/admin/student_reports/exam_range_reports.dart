@@ -18,7 +18,7 @@ class MonthlyExamReportScreen extends StatefulWidget {
 
 class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
   final _formKey = GlobalKey<FormState>();
-  String msg = 'Please Class Name and division';
+  String msg = 'enterdetails'.tr;
   String userLevel = "";
   String userID = "";
   String userNumber = "";
@@ -80,7 +80,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                                 context,
                                 blockList,
                                 blockName,
-                                'Choose block',
+                                'chooseblock'.tr,
                                 blockName,
                                 const Icon(Icons.search),
                                 (value) {
@@ -96,14 +96,14 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                                     });
                                   }
                                 },
-                                'Choose block',
+                                'chooseblock'.tr,
                                 Colors.black,
-                                'Choose block',
+                                'chooseblock'.tr,
                                 (value) {
-                                  if (value == 'Choose block' ||
+                                  if (value == 'chooseblock'.tr ||
                                       value == null ||
                                       value.toString().isEmpty) {
-                                    return 'Please Choose block';
+                                    return 'please'.tr + 'chooseblock'.tr;
                                   }
                                   return null;
                                 })
@@ -113,7 +113,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                                 context,
                                 clusterList,
                                 clusterName,
-                                'Choose cluster',
+                                'choosecluster'.tr,
                                 clusterName,
                                 const Icon(Icons.search),
                                 (value) {
@@ -132,14 +132,14 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                                     });
                                   }
                                 },
-                                'Choose cluster',
+                                'choosecluster'.tr,
                                 Colors.black,
-                                'Choose cluster',
+                                'choosecluster'.tr,
                                 (value) {
-                                  if (value == 'Choose cluster' ||
+                                  if (value == 'choosecluster'.tr ||
                                       value == null ||
                                       value.toString().isEmpty) {
-                                    return 'Please Choose cluster';
+                                    return 'please'.tr + 'choosecluster'.tr;
                                   }
                                   return null;
                                 })
@@ -148,7 +148,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                             context,
                             schoolList,
                             schoolName,
-                            'Choose school',
+                            'chooseschool'.tr,
                             schoolName,
                             const Icon(Icons.search),
                             (value) {
@@ -160,14 +160,14 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                                 });
                               }
                             },
-                            'Choose school',
+                            'chooseschool'.tr,
                             Colors.black,
-                            'Choose school',
+                            'chooseschool'.tr,
                             (value) {
-                              if (value == 'Choose school' ||
+                              if (value == 'chooseschool'.tr ||
                                   value == null ||
                                   value.toString().isEmpty) {
-                                return 'Please Choose school';
+                                return 'Please'.tr + 'chooseschool'.tr;
                               }
                               return null;
                             }),
@@ -180,8 +180,8 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                           width: MediaQuery.of(context).size.width * 0.48,
                           child: UtilsWidgets.dropDownButton(
                             context,
-                            'Class Name',
-                            'Class Name',
+                            'class'.tr,
+                            'class'.tr,
                             className,
                             classList,
                             (p0) => setState(() {
@@ -189,7 +189,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                             }),
                             validator: (p0) {
                               if (className == '') {
-                                return "Class Name";
+                                return 'class'.tr;
                               }
                             },
                           ),
@@ -198,8 +198,8 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                           width: MediaQuery.of(context).size.width * 0.52,
                           child: UtilsWidgets.dropDownButton(
                             context,
-                            'Division Name',
-                            'Division Name',
+                            'division'.tr,
+                            'division'.tr,
                             divisionName,
                             divisionList,
                             (p0) => setState(() {
@@ -207,7 +207,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                             }),
                             validator: (p0) {
                               if (divisionName == '') {
-                                return "Division Name";
+                                return 'division'.tr;
                               }
                             },
                           ),
@@ -222,8 +222,8 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                           width: MediaQuery.of(context).size.width * 0.48,
                           child: UtilsWidgets.dropDownButton(
                             context,
-                            'exam Name',
-                            'exam Name',
+                            'chooseexamname'.tr,
+                            'chooseexamname'.tr,
                             examName,
                             examList,
                             (value) {
@@ -233,7 +233,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                             },
                             validator: (p0) {
                               if (divisionName == '') {
-                                return "exam Name";
+                                return 'chooseexamname'.tr;
                               }
                             },
                           ),
@@ -242,8 +242,8 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                           width: MediaQuery.of(context).size.width * 0.52,
                           child: UtilsWidgets.dropDownButton(
                             context,
-                            'exam year',
-                            'exam year',
+                            'chooseexamyear'.tr,
+                            'chooseexamyear'.tr,
                             examYearName,
                             examYearList,
                             (value) {
@@ -253,7 +253,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                             },
                             validator: (p0) {
                               if (divisionName == '') {
-                                return "exam year";
+                                return 'chooseexamyear'.tr;
                               }
                             },
                           ),
@@ -268,7 +268,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                                 child: CircularProgressIndicator(),
                               )
                             : UtilsWidgets.buildSqureBtn(
-                                'Search',
+                                'search'.tr,
                                 () {
                                   if (_formKey.currentState!.validate()) {
                                     // getHistory();
@@ -281,7 +281,7 @@ class _MonthlyExamReportScreenState extends State<MonthlyExamReportScreen> {
                         SizedBox(width: 10),
                         _isFind
                             ? UtilsWidgets.buildSqureBtn(
-                                'Download',
+                                'download'.tr,
                                 () async {
                                   reportGenerate();
                                 },

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:numsai/constants.dart';
 import 'package:numsai/utils/function_utils.dart';
@@ -76,8 +77,8 @@ class _NoticePostState extends State<NoticePost>
                           width: MediaQuery.of(context).size.width * 0.48,
                           child: UtilsWidgets.dropDownButton(
                               context,
-                              'Choose level-1',
-                              'Choose level-1',
+                              'chooselevel1'.tr,
+                              'chooselevel1'.tr,
                               level1Name,
                               level1List, (p0) {
                             setState(() {
@@ -94,14 +95,14 @@ class _NoticePostState extends State<NoticePost>
                             });
                           }, validator: (p0) {
                             if (level1Name == '') {
-                              return "Please choose level-1";
+                              return "please".tr + 'chooselevel1'.tr;
                             }
                           })),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.52,
                         child: UtilsWidgets.buildDatePicker(
-                          'Choose date to post notice',
-                          'Choose date to post notice',
+                          'noticepostdate'.tr,
+                          'noticepostdate'.tr,
                           _startDateText,
                           (val) {},
                           firstDate: DateTime(DateTime.now().year - 1),
@@ -118,8 +119,8 @@ class _NoticePostState extends State<NoticePost>
                               width: MediaQuery.of(context).size.width * 0.48,
                               child: UtilsWidgets.dropDownButton(
                                   context,
-                                  'Choose level-2',
-                                  'Choose level-2',
+                                  'chooselevel2'.tr,
+                                  'chooselevel2'.tr,
                                   level2Name,
                                   level2List, (p0) {
                                 setState(() {
@@ -127,7 +128,7 @@ class _NoticePostState extends State<NoticePost>
                                 });
                               }, validator: (p0) {
                                 if (level2Name == '') {
-                                  return "Please choose level-2";
+                                  return "please".tr + 'chooselevel2'.tr;
                                 }
                               }))
                           : Container(),
@@ -136,8 +137,8 @@ class _NoticePostState extends State<NoticePost>
                               width: MediaQuery.of(context).size.width * 0.52,
                               child: UtilsWidgets.dropDownButton(
                                   context,
-                                  'Choose sendTo',
-                                  'Choose sendTo',
+                                  'noticeschoollevel'.tr,
+                                  'noticeschoollevel'.tr,
                                   schoollevelName,
                                   schoollevelList, (p0) {
                                 setState(() {
@@ -145,7 +146,7 @@ class _NoticePostState extends State<NoticePost>
                                 });
                               }, validator: (p0) {
                                 if (schoollevelName == '') {
-                                  return "Please choose sendTo";
+                                  return 'please'.tr + 'noticeschoollevel'.tr;
                                 }
                               }))
                           : Container(),
@@ -162,7 +163,7 @@ class _NoticePostState extends State<NoticePost>
                                   context,
                                   blockList,
                                   blockName,
-                                  'Choose block',
+                                  'chooseblock'.tr,
                                   blockName,
                                   const Icon(Icons.search),
                                   (value) {
@@ -178,14 +179,14 @@ class _NoticePostState extends State<NoticePost>
                                       });
                                     }
                                   },
-                                  'Choose block',
+                                  'chooseblock'.tr,
                                   Colors.black,
-                                  'Choose block',
+                                  'chooseblock'.tr,
                                   (value) {
-                                    if (value == 'Choose block' ||
+                                    if (value == 'chooseblock'.tr ||
                                         value == null ||
                                         value.toString().isEmpty) {
-                                      return 'Please Choose block';
+                                      return 'please'.tr + 'chooseblock'.tr;
                                     }
                                     return null;
                                   })
@@ -197,7 +198,7 @@ class _NoticePostState extends State<NoticePost>
                                   context,
                                   clusterList,
                                   clusterName,
-                                  'Choose cluster',
+                                  'choosecluster'.tr,
                                   clusterName,
                                   const Icon(Icons.search),
                                   (value) {
@@ -216,14 +217,14 @@ class _NoticePostState extends State<NoticePost>
                                       });
                                     }
                                   },
-                                  'Choose cluster',
+                                  'choosecluster'.tr,
                                   Colors.black,
-                                  'Choose cluster',
+                                  'choosecluster'.tr,
                                   (value) {
-                                    if (value == 'Choose cluster' ||
+                                    if (value == 'choosecluster'.tr ||
                                         value == null ||
                                         value.toString().isEmpty) {
-                                      return 'Please Choose cluster';
+                                      return 'please'.tr + 'choosecluster'.tr;
                                     }
                                     return null;
                                   })
@@ -237,7 +238,7 @@ class _NoticePostState extends State<NoticePost>
                                   context,
                                   schoolList,
                                   schoolName,
-                                  'Choose school',
+                                  'chooseschool'.tr,
                                   schoolName,
                                   const Icon(Icons.search),
                                   (value) {
@@ -249,14 +250,14 @@ class _NoticePostState extends State<NoticePost>
                                       });
                                     }
                                   },
-                                  'Choose school',
+                                  'chooseschool'.tr,
                                   Colors.black,
-                                  'Choose school',
+                                  'chooseschool'.tr,
                                   (value) {
-                                    if (value == 'Choose school' ||
+                                    if (value == 'chooseschool'.tr ||
                                         value == null ||
                                         value.toString().isEmpty) {
-                                      return 'Please Choose school';
+                                      return 'please'.tr + 'chooseschool'.tr;
                                     }
                                     return null;
                                   })
@@ -265,28 +266,37 @@ class _NoticePostState extends State<NoticePost>
                     ],
                   ),
                   UtilsWidgets.textFormField(
-                      context, "Enter notice subject", "notice subject", (p0) {
-                    if (p0 == null || p0.isEmpty) {
-                      return "Please enter notice subject";
-                    }
-                  }, _subjectText),
-                  UtilsWidgets.textFormField(
-                      context, "Enter reason for notice", "notice reason",
+                      context, 
+                      'noticesubjecttf'.tr, 
+                      'noticesubjecttf'.tr, 
                       (p0) {
-                    if (p0 == null || p0.isEmpty) {
-                      return "Please enter reason for notice";
-                    }
-                  }, _reasonText, maxLine: 3),
+                        if (p0 == null || p0.isEmpty) {
+                          return 'please'.tr + 'noticesubjecttf'.tr;
+                        }
+                      }, 
+                      _subjectText
+                  ),
+                  UtilsWidgets.textFormField(
+                      context, 
+                      'noticereason'.tr, 
+                      'noticereason'.tr,
+                      (p0) {
+                        if (p0 == null || p0.isEmpty) {
+                          return 'please'.tr + 'noticereason'.tr;
+                        }
+                      }, 
+                      _reasonText, maxLine: 3
+                  ),
                   Text(
-                    'Upload your file',
+                    'uploadexamfile'.tr,
                     style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey.shade800,
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'File should be  jpg, png, pdf',
+                  Text(
+                    'filetypewarning'.tr,
                     style: TextStyle(fontSize: 13, color: Colors.grey),
                   ),
                   GestureDetector(
@@ -312,8 +322,8 @@ class _NoticePostState extends State<NoticePost>
                               size: 100,
                             ),
                             const SizedBox(height: 5),
-                            const Text(
-                              'Select your file',
+                            Text(
+                              'uploadexamfile'.tr,
                               style:
                                   TextStyle(fontSize: 13, color: Colors.grey),
                             ),
@@ -328,8 +338,8 @@ class _NoticePostState extends State<NoticePost>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Selected File',
+                              Text(
+                                'selectedfile'.tr,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -414,7 +424,7 @@ class _NoticePostState extends State<NoticePost>
                   _isLoading
                       ? const Center(child: CircularProgressIndicator())
                       : UtilsWidgets.buildRoundBtn(
-                          'Post Notice',
+                          'cdnotice'.tr,
                           () {
                             if (_formKey.currentState!.validate()) {
                               postNotice();

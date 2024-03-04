@@ -716,6 +716,7 @@ class UtilsWidgets {
 
   static showGetDialog(BuildContext context, message, Color? color) {
     return Get.defaultDialog(
+        title: "alert".tr,
         middleText: message,
         contentPadding: EdgeInsets.all(15),
         backgroundColor: Color.fromARGB(255, 227, 235, 239),

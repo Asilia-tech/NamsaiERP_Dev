@@ -187,7 +187,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                               gender = value.toString();
                             });
                           }),
-                      Text('Male')
+                      Text('gendermale'.tr)
                     ],
                   ),
                   Row(
@@ -200,7 +200,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                               gender = value.toString();
                             });
                           }),
-                      Text('Female')
+                      Text('genderfemale'.tr)
                     ],
                   ),
                   Row(
@@ -213,7 +213,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                               gender = value.toString();
                             });
                           }),
-                      Text('Other')
+                      Text('genderother'.tr)
                     ],
                   ),
                 ]),
@@ -285,7 +285,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                                 "caste".tr,
                                 (p0) {
                                   if (p0 == null || p0.isEmpty) {
-                                    return "caste".tr;
+                                    return "please".tr + "caste".tr;
                                   }
                                 },
                                 _casteText,
@@ -317,7 +317,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                             context,
                             blockList,
                             blockName,
-                            'Choose block',
+                            'chooseblock'.tr,
                             blockName,
                             const Icon(Icons.search),
                             (value) {
@@ -333,14 +333,14 @@ class _AddPrincipalState extends State<AddPrincipal> {
                                 });
                               }
                             },
-                            'Choose block',
+                            'chooseblock'.tr,
                             Colors.black,
-                            'Choose block',
+                            'chooseblock'.tr,
                             (value) {
-                              if (value == 'Choose block' ||
+                              if (value == 'chooseblock'.tr ||
                                   value == null ||
                                   value.toString().isEmpty) {
-                                return 'Please Choose block';
+                                return 'please'.tr + 'chooseblock'.tr;
                               }
                               return null;
                             })
@@ -350,7 +350,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                             context,
                             clusterList,
                             clusterName,
-                            'Choose cluster',
+                            'choosecluster'.tr,
                             clusterName,
                             const Icon(Icons.search),
                             (value) {
@@ -368,14 +368,14 @@ class _AddPrincipalState extends State<AddPrincipal> {
                                 });
                               }
                             },
-                            'Choose cluster',
+                            'choosecluster'.tr,
                             Colors.black,
-                            'Choose cluster',
+                            'choosecluster'.tr,
                             (value) {
-                              if (value == 'Choose cluster' ||
+                              if (value == 'choosecluster'.tr ||
                                   value == null ||
                                   value.toString().isEmpty) {
-                                return 'Please Choose cluster';
+                                return 'please'.tr + 'choosecluster'.tr;
                               }
                               return null;
                             })
@@ -384,7 +384,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                         context,
                         schoolList,
                         schoolName,
-                        'Choose school',
+                        'chooseschool'.tr,
                         schoolName,
                         const Icon(Icons.search),
                         (value) {
@@ -395,14 +395,14 @@ class _AddPrincipalState extends State<AddPrincipal> {
                             });
                           }
                         },
-                        'Choose school',
+                        'chooseschool'.tr,
                         Colors.black,
-                        'Choose school',
+                        'chooseschool'.tr,
                         (value) {
-                          if (value == 'Choose school' ||
+                          if (value == 'chooseschool'.tr ||
                               value == null ||
                               value.toString().isEmpty) {
-                            return 'Please Choose school';
+                            return 'please'.tr + 'chooseschool'.tr;
                           }
                           return null;
                         })
@@ -464,7 +464,7 @@ class _AddPrincipalState extends State<AddPrincipal> {
                       UtilsWidgets.textFormField(
                         context,
                         "banknametf".tr,
-                        "banknametf".tr,
+                        "Eg. bank",
                         (p0) {
                           if (p0 == null || p0.isEmpty) {
                             return "please".tr + "banknametf".tr;
@@ -581,8 +581,12 @@ class _AddPrincipalState extends State<AddPrincipal> {
                     ? const CircularProgressIndicator()
                     : UtilsWidgets.buildRoundBtn("teacheradd".tr, () async {
                         if (_formKey.currentState!.validate()) {
-                          UtilsWidgets.bottomDialogs("addalert".tr, 'alert'.tr,
-                              'cancel'.tr, 'submit'.tr, context, () {
+                          UtilsWidgets.bottomDialogs(
+                            'addalert'.tr, 
+                            'alert'.tr,
+                            'cancel'.tr, 
+                            'submit'.tr, 
+                            context, () {
                             Navigator.of(context).pop();
                           }, () {
                             addTeacher();
