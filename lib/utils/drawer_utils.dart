@@ -14,6 +14,7 @@ import 'package:numsai/constants.dart';
 import 'package:numsai/utils/widget_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:numsai/admin/timetable.dart';
 
 class BuildDrawer {
   static Drawer buildUserDrawer(
@@ -90,6 +91,13 @@ class BuildDrawer {
                   ? UtilsWidgets.showGetDialog(context,
                       "Please check your internet connection.", Colors.red)
                   : Get.to(SchoolList());
+            }),
+            UtilsWidgets.drawerTile(
+                context, Icons.edit_square, 'timetable'.tr, () {
+              !isConnected
+                  ? UtilsWidgets.showGetDialog(context,
+                      "Please check your internet connection.", Colors.red)
+                  : Get.to(TimetableScreen());
             }),
             const Divider(color: Colors.grey, thickness: 2),
             UtilsWidgets.drawerTile(context, Icons.dashboard, 'hvd'.tr,

@@ -278,6 +278,7 @@ class LocalString extends Translations {
           "totalleave": 'Total Leave',
           "studentreportlevel": 'Choose level',
           "enterdetails": 'Please enter the details',
+          "timetable": "Timetable",
         },
 
 
@@ -564,6 +565,7 @@ class LocalString extends Translations {
           "totalleave": 'कुल छुट्टी',
           "studentreportlevel": 'स्तर चुनें',
           "enterdetails": 'विवरण दर्ज करें',
+          "timetable": "समय सारणी",
         },
       };
 }

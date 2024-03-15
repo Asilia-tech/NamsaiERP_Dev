@@ -730,7 +730,8 @@ class _AddSchoolState extends State<AddSchool> {
                                                 firstDate: DateTime(2022),
                                                 lastDate: DateTime(2101),
                                                 date: DateTimePickerType.date,
-                                                dateMask: "yyyy-MM-dd")),
+                                                dateMask: "yyyy-MM-dd")
+                                            ),
                                         SizedBox(
                                             width: 250,
                                             child: UtilsWidgets.textFormField(
