@@ -8,9 +8,13 @@ import 'package:numsai/utils/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:numsai/admin/displayTimetable.dart';
+import 'dart:convert';
 
 class TimetableScreen extends StatefulWidget {
-  const TimetableScreen({super.key});
+  // const TimetableScreen({super.key});
+  //newpg
+  const TimetableScreen({Key? key}) : super(key: key);
 
   @override
   State<TimetableScreen> createState() => _TimetableState();
@@ -37,6 +41,12 @@ class _TimetableState extends State<TimetableScreen> {
   bool _isLoading = false;
   // Map<String, Map<String, Map<String, Map<String, String>>>> tt = {};
   Map<String, dynamic> tt = {};
+  //newpg
+  void updateTT(Map<String, dynamic> updatedTT) {
+    setState(() {
+      tt = updatedTT;
+    });
+  }
   
   @override
   void initState() {
@@ -53,7 +63,6 @@ class _TimetableState extends State<TimetableScreen> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: 10),
                 Container(
                   padding: EdgeInsets.all(10),
                   margin: EdgeInsets.all(10),
@@ -63,7 +72,7 @@ class _TimetableState extends State<TimetableScreen> {
                   ),
                   child: 
                   Container(
-                    constraints: BoxConstraints(minHeight: 0, minWidth: 0), // Add constraints
+                    constraints: BoxConstraints(minHeight: 0, minWidth: 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -201,6 +210,18 @@ class _TimetableState extends State<TimetableScreen> {
                                 _dayText,
                               ),
                             ),
+                            SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => TableWidget(tt: tt),
+                                    ),
+                                  );
+                                },
+                                child: Text('Print Table'),
+                              ),
                           ],
                         ),
                       ],
@@ -224,7 +245,6 @@ class _TimetableState extends State<TimetableScreen> {
                           });
                         }
                       }),
-                SizedBox(height: 20),
               ],
             )),
       ),
@@ -239,62 +259,136 @@ class _TimetableState extends State<TimetableScreen> {
     
   // }
 
-void addCell() {
-  String className = _classText.text;
-  String sectionName = _sectionText.text;
-  String dayName = _dayText.text;
-  String intimeKey = _startTimeText.text; // Rename to intimeKey to avoid confusion
-  
-  // Create a new map for the cell data
-  Map<String, String> cellData = {
-    'subject': _subjectText.text,
-    'endTime': _endTimeText.text,
-    'room': _roomText.text,
-    'teacher': _teacherText.text,
-  };
-
-  // Check if the class already exists in the tt map
-  if (tt.containsKey(className)) {
-    // If the class already exists, get its corresponding section map
-    Map<String, dynamic> classMap = tt[className]!;
+  void addCell() {
     
-    // Check if the section already exists in the class map
-    if (classMap.containsKey(sectionName)) {
-      // If the section already exists, get its corresponding day map
-      Map<String, dynamic> sectionMap = classMap[sectionName]!;
-      
-      // Check if the day already exists in the section map
-      if (sectionMap.containsKey(dayName)) {
-        // If the day already exists, get its corresponding intime map
-        Map<String, dynamic> intimeMap = sectionMap[dayName]![intimeKey] ?? {};
+    String className = _classText.text;
+    String sectionName = _sectionText.text;
+    String dayName = _dayText.text;
+    String intimeKey = _startTimeText.text;
+    
+    // Create a new map for the cell data
+    Map<String, String> cellData = {
+      'subject': _subjectText.text,
+      'endTime': _endTimeText.text,
+      'room': _roomText.text,
+      'teacher': _teacherText.text,
+    };
+
+      setState(() {
+      // Check if the class already exists in the tt map
+      if (tt.containsKey(className)) {
+        // If the class already exists, get its corresponding section map
+        Map<String, dynamic> classMap = tt[className]!;
         
-        // Update or add the cell data to the intime map
-        intimeMap.addAll(cellData);
-        
-        // Update the intime map in the section map
-        sectionMap[dayName]![intimeKey] = intimeMap;
+        // Check if the section already exists in the class map
+        if (classMap.containsKey(sectionName)) {
+          // If the section already exists, get its corresponding day map
+          Map<String, dynamic> sectionMap = classMap[sectionName]!;
+          
+          // Check if the day already exists in the section map
+          if (sectionMap.containsKey(dayName)) {
+            // If the day already exists, get its corresponding intime map
+            Map<String, dynamic> intimeMap = sectionMap[dayName]![intimeKey] ?? {};
+            
+            // Update or add the cell data to the intime map
+            intimeMap.addAll(cellData);
+            
+            // Update the intime map in the section map
+            sectionMap[dayName]![intimeKey] = intimeMap;
+          } else {
+            // If the day doesn't exist, create a new day map and add it to the section map
+            Map<String, dynamic> dayMap = {intimeKey: cellData};
+            sectionMap[dayName] = dayMap;
+          }
+        } else {
+          // If the section doesn't exist, create a new section map and add it to the class map
+          Map<String, dynamic> dayMap = {intimeKey: cellData};
+          Map<String, dynamic> sectionMap = {dayName: dayMap};
+          classMap[sectionName] = sectionMap;
+        }
       } else {
-        // If the day doesn't exist, create a new day map and add it to the section map
+        // If the class doesn't exist, create a new class map and add it to tt
         Map<String, dynamic> dayMap = {intimeKey: cellData};
-        sectionMap[dayName] = dayMap;
+        Map<String, dynamic> sectionMap = {dayName: dayMap};
+        tt[className] = {sectionName: sectionMap};
       }
-    } else {
-      // If the section doesn't exist, create a new section map and add it to the class map
-      Map<String, dynamic> dayMap = {intimeKey: cellData};
-      Map<String, dynamic> sectionMap = {dayName: dayMap};
-      classMap[sectionName] = sectionMap;
-    }
-  } else {
-    // If the class doesn't exist, create a new class map and add it to tt
-    Map<String, dynamic> dayMap = {intimeKey: cellData};
-    Map<String, dynamic> sectionMap = {dayName: dayMap};
-    tt[className] = {sectionName: sectionMap};
+    });
+    updateTT(tt);
+    print("$tt");
   }
-  print("$tt");
-}
 
 
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// class TableWidget extends StatelessWidget {
+//   final Map<String, dynamic> tt;
+
+//   TableWidget({required this.tt});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: SingleChildScrollView(
+//         scrollDirection: Axis.horizontal,
+//         child: DataTable(
+//           columns: _buildColumns(),
+//           rows: _buildRows(),
+//         ),
+//       ),
+//     );
+//   }
+
+//   List<DataColumn> _buildColumns() {
+//     return [
+//       DataColumn(label: Text('Monday')),
+//       DataColumn(label: Text('Tuesday')),
+//       DataColumn(label: Text('Wednesday')),
+//       DataColumn(label: Text('Thursday')),
+//       DataColumn(label: Text('Friday')),
+//       DataColumn(label: Text('Saturday')),
+//       DataColumn(label: Text('Sunday')),
+//     ];
+//   }
+
+//   List<DataRow> _buildRows() {
+//     List<DataRow> rows = [];
+//     tt.forEach((classKey, classValue) {
+//       classValue.forEach((sectionKey, sectionValue) {
+//         sectionValue.forEach((dayKey, dayValue) {
+//           rows.add(DataRow(cells: [
+//             for (int i = 0; i < 7; i++)
+//               DataCell(
+//                 _buildCellData(dayValue.entries.toList(), i),
+//               ),
+//           ]));
+//         });
+//       });
+//     });
+//     return rows;
+//   }
+
+//   Widget _buildCellData(List<MapEntry<String, Map<String, dynamic>>> entries,
+//       int dayIndex) {
+//     List<Widget> cellData = [];
+
+//     for (var entry in entries) {
+//       if (entry.key.endsWith('$dayIndex')) {
+//         cellData.add(Text(entry.value['subject']));
+//         cellData.add(Text(entry.value['endTime']));
+//         cellData.add(Text(entry.value['room']));
+//         cellData.add(Text(entry.value['teacher']));
+//         break;
+//       }
+//     }
+
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: cellData,
+//     );
+//   }
+// }
 
 
 
