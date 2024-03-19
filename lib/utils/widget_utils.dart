@@ -365,7 +365,7 @@ class UtilsWidgets {
           style: TextStyle(color: txtcolor),
         ),
         style: ElevatedButton.styleFrom(
-          elevation: 10,
+          elevation: 5,
           backgroundColor: bgcolor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),

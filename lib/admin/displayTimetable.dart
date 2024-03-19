@@ -16,6 +16,8 @@ class TableWidget extends StatefulWidget {
 
 class _TableState extends State<TableWidget> {
   final _formKey = GlobalKey<FormState>();
+  List classList = ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'];
+  List sectionList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   String _class = "";
   String section = "";
   final Map<String, dynamic> tt;
@@ -32,36 +34,57 @@ class _TableState extends State<TableWidget> {
             child: Column(
               children: [
                 SizedBox(width: 10),
-                UtilsWidgets.textFormField(
+                UtilsWidgets.searchAbleDropDown(
                   context,
-                  "Enter the class",
-                  'Eg. VI',
-                  (p0) {
-                    if (p0 == null || p0.isEmpty)
-                      return 'please'.tr + "enter the class";
+                  classList,
+                  'Class',
+                  'Choose a class',
+                  'Class',
+                  const Icon(Icons.search),
+                  (value) {
+                    if (value != null) {
+                      setState(() {
+                        _class = value;
+                      });
+                    }
                   },
-                  null,
-                  onChanged: (value) {
-                    setState(() {
-                      _class = value;
-                    });
+                  'Choose a class',
+                  Colors.black,
+                  'Choose a class',
+                  (value) {
+                    if (value == 'Choose a class' ||
+                        value == null ||
+                        value.toString().isEmpty) {
+                      return 'please'.tr + 'Choose a class';
+                    }
+                    return null;
                   }
                 ),
                 SizedBox(width: 10),
-                UtilsWidgets.textFormField(
+                UtilsWidgets.searchAbleDropDown(
                   context,
-                  "Enter the section",
-                  "Eg. A",
-                  (p0) {
-                    if (p0 == null || p0.isEmpty) {
-                      return 'please'.tr + "enter the section";
+                  sectionList,
+                  'Section',
+                  'Choose a section',
+                  'Section',
+                  const Icon(Icons.search),
+                  (value) {
+                    if (value != null) {
+                      setState(() {
+                        section = value;
+                      });
                     }
                   },
-                  null,
-                  onChanged: (value) {
-                    setState(() {
-                      section = value;
-                    });
+                  'Choose a section',
+                  Colors.black,
+                  'Choose a section',
+                  (value) {
+                    if (value == 'Choose a section' ||
+                        value == null ||
+                        value.toString().isEmpty) {
+                      return 'please'.tr + 'Choose a section';
+                    }
+                    return null;
                   }
                 ),
                 SizedBox(width: 10),

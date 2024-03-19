@@ -1,3 +1,5 @@
+//reset tt not working
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:date_time_picker/date_time_picker.dart';
@@ -30,15 +32,12 @@ class _TimetableState extends State<TimetableScreen> {
   final TextEditingController _roomText = TextEditingController(text: '');
   final TextEditingController _teacherText = TextEditingController(text: '');
   final TextEditingController _dayText = TextEditingController(text: '');
-  // String _class = "";
-  // String section = "";
-  // String subject = "";
-  // String startTime = "";
-  // String endTime = "";
-  // String room = "";
-  // String teacher = "";
-  // String day = "";
+  List daysList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  List classList = ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'];
+  List sectionList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   bool _isLoading = false;
+  String startTime = "";
+  String endTime = "";
   // Map<String, Map<String, Map<String, Map<String, String>>>> tt = {};
   Map<String, dynamic> tt = {};
   //newpg
@@ -50,9 +49,29 @@ class _TimetableState extends State<TimetableScreen> {
   
   @override
   void initState() {
-    // loadBlock();
     super.initState();
+    _getStoredTT();
   }
+
+  Future<void> _getStoredTT() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? ttJson = prefs.getString('tt');
+
+    // Check if ttJson is not null
+    if (ttJson != null) {
+      // Convert the JSON string back to a nested map
+      Map<String, dynamic> fetchedtt = json.decode(ttJson);
+      // Now you can use tt as your nested map
+      setState(() {
+        // Set the retrieved nested map to a state variable for use in your widget
+        // Example:
+        setState(() {
+          tt = fetchedtt;
+        });
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,202 +79,291 @@ class _TimetableState extends State<TimetableScreen> {
       appBar: UtilsWidgets.buildAppBar(context, 'timetable'.tr),
       body: SingleChildScrollView(
         child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
+          key: _formKey,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: 
                 Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: 
-                  Container(
-                    constraints: BoxConstraints(minHeight: 0, minWidth: 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          "Add a cell",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  constraints: BoxConstraints(minHeight: 0, minWidth: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "Add a cell",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(width: 10),
-                            Expanded(
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                "Enter the class",
-                                'Eg. VI',
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty)
-                                    return 'please'.tr + "enter the class";
-                                },
-                                _classText,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Expanded(
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                "Enter the section",
-                                "Eg. A",
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty) {
-                                    return 'please'.tr + "enter the section";
-                                  }
-                                },
-                                _sectionText,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(width: 10),
-                            Expanded(
-                              // flex: 1,
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                "Enter the start time",
-                                'Eg. 9:00 AM',
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty) {
-                                    return 'please'.tr + "enter the start time";
-                                  }
-                                },
-                                _startTimeText,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Expanded(
-                              // flex: 1,
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                'Enter the end time',
-                                'Eg. 3:00 AM',
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty) {
-                                    return 'please'.tr + "enter the end time";
-                                  }
-                                },
-                                _endTimeText,
-                              ),
-                            ),
-                          ]
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(width: 10),
-                            Expanded(
-                              // flex: 1,
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                "Enter the subject",
-                                'Eg. Science',
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty) {
-                                    return 'please' + "enter the subject";
-                                  }
-                                },
-                                _subjectText,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Expanded(
-                              // flex: 1,
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                "Enter the room",
-                                'Eg. 5',
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty) {
-                                    return 'please' + "enter the room";
-                                  }
-                                },
-                                _roomText,
-                              ),
-                            ),
-                          ]
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(width: 10),
-                            Expanded(
-                              // flex: 1,
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                "Enter the teacher",
-                                'Eg. Manoj',
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty) {
-                                    return 'please' + "enter the teacher";
-                                  }
-                                },
-                                _teacherText,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Expanded(
-                              // flex: 1,
-                              child: UtilsWidgets.textFormField(
-                                context,
-                                "Enter the day",
-                                'Eg. Monday',
-                                (p0) {
-                                  if (p0 == null || p0.isEmpty) {
-                                    return 'please' + "enter the day";
-                                  }
-                                },
-                                _dayText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                _isLoading
-                    ? const CircularProgressIndicator()
-                    : UtilsWidgets.buildRoundBtn('add'.tr + "/" + 'update'.tr, () async {
-                        if (_formKey.currentState!.validate()) {
-                          UtilsWidgets.bottomDialogs(
-                              'addalert'.tr + '/' + 'update'.tr, 
-                              'alert'.tr,
-                              'cancel'.tr, 
-                              'submit'.tr,
-                              context, () {
-                            Navigator.of(context).pop();
-                          }, () {
-                            addCell();
-                            Navigator.of(context).pop();
-                          });
-                        }
-                      }),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TableWidget(tt: tt),
                       ),
-                    );
-                  },
-                  child: Text('Print Table'),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: UtilsWidgets.searchAbleDropDown(
+                              context,
+                              classList,
+                              'Class',
+                              'Choose a class',
+                              'Class',
+                              const Icon(Icons.search),
+                              (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _classText.text = value;
+                                  });
+                                }
+                              },
+                              'Choose a class',
+                              Colors.black,
+                              'Choose a class',
+                              (value) {
+                                if (value == 'Choose a class' ||
+                                    value == null ||
+                                    value.toString().isEmpty) {
+                                  return 'please'.tr + 'Choose a class';
+                                }
+                                return null;
+                              }
+                            )
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: UtilsWidgets.searchAbleDropDown(
+                              context,
+                              sectionList,
+                              'Section',
+                              'Choose a section',
+                              'Section',
+                              const Icon(Icons.search),
+                              (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _sectionText.text = value;
+                                  });
+                                }
+                              },
+                              'Choose a section',
+                              Colors.black,
+                              'Choose a section',
+                              (value) {
+                                if (value == 'Choose a section' ||
+                                    value == null ||
+                                    value.toString().isEmpty) {
+                                  return 'please'.tr + 'Choose a section';
+                                }
+                                return null;
+                              }
+                            )
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(height: 20),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                UtilsWidgets.buildSqureBtn(
+                                  'Start Time',
+                                  () async {
+                                    TimeOfDay? pickedTime = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
+                                    );
+                                    setState(() {
+                                      _startTimeText.text = Utils.formatTimeOfDay(pickedTime!);
+                                    });
+                                  },
+                                  Constants.primaryColor,
+                                  Colors.white,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  _startTimeText.text.isNotEmpty ? _startTimeText.text : 'Choose Start Time',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                UtilsWidgets.buildSqureBtn(
+                                  'End Time',
+                                  () async {
+                                    TimeOfDay? pickedTime = await showTimePicker(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
+                                    );
+                                    setState(() {
+                                      _endTimeText.text = Utils.formatTimeOfDay(pickedTime!);
+                                    });
+                                  },
+                                  Constants.primaryColor,
+                                  Colors.white,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  _endTimeText.text.isNotEmpty ? _endTimeText.text : 'Choose End Time',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(width: 10),
+                          Expanded(
+                            // flex: 1,
+                            child: UtilsWidgets.textFormField(
+                              context,
+                              "Enter the subject",
+                              'Eg. Science',
+                              (p0) {
+                                if (p0 == null || p0.isEmpty) {
+                                  return 'please' + "enter the subject";
+                                }
+                              },
+                              _subjectText,
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            // flex: 1,
+                            child: UtilsWidgets.textFormField(
+                              context,
+                              "Enter the room",
+                              'Eg. 5',
+                              (p0) {
+                                if (p0 == null || p0.isEmpty) {
+                                  return 'please' + "enter the room";
+                                }
+                              },
+                              _roomText,
+                            ),
+                          ),
+                        ]
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(width: 10),
+                          Expanded(
+                            // flex: 1,
+                            child: UtilsWidgets.textFormField(
+                              context,
+                              "Enter the teacher",
+                              'Eg. Manoj',
+                              (p0) {
+                                if (p0 == null || p0.isEmpty) {
+                                  return 'please' + "enter the teacher";
+                                }
+                              },
+                              _teacherText,
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            // flex: 1,
+                            child: 
+                            UtilsWidgets.searchAbleDropDown(
+                              context,
+                              daysList,
+                              'Days',
+                              'Choose a day',
+                              'Days',
+                              const Icon(Icons.search),
+                              (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _dayText.text = value;
+                                  });
+                                }
+                              },
+                              'Choose a day',
+                              Colors.black,
+                              'Choose a day',
+                              (value) {
+                                if (value == 'Choose a day' ||
+                                    value == null ||
+                                    value.toString().isEmpty) {
+                                  return 'please'.tr + 'Choose a day';
+                                }
+                                return null;
+                              }
+                            )
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            )),
+              ),
+              SizedBox(width: 40),
+              _isLoading
+                  ? const CircularProgressIndicator()
+                  : UtilsWidgets.buildRoundBtn('add'.tr + "/" + 'update'.tr, () async {
+                      if (_formKey.currentState!.validate()) {
+                        UtilsWidgets.bottomDialogs(
+                            'addalert'.tr + '/' + 'update'.tr, 
+                            'alert'.tr,
+                            'cancel'.tr, 
+                            'submit'.tr,
+                            context, () {
+                          Navigator.of(context).pop();
+                        }, () {
+                          addCell();
+                          Navigator.of(context).pop();
+                        });
+                      }
+                    }),
+              SizedBox(height: 20),
+              UtilsWidgets.buildRoundBtn('Print' + 'timetable'.tr, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TableWidget(tt: tt),
+                    ),
+                  );
+                }
+              ),
+              SizedBox(height: 20),
+              // UtilsWidgets.buildRoundBtn('Reset' + ' ' + 'timetable'.tr, () {
+              //     UtilsWidgets.bottomDialogs(
+              //       'Are you sure', 
+              //       'alert'.tr,
+              //       'cancel'.tr, 
+              //       'submit'.tr,
+              //       context, 
+              //       () {
+              //         Navigator.of(context).pop();
+              //       },
+              //       () async {
+              //         SharedPreferences prefs = await SharedPreferences.getInstance();
+              //         await prefs.remove('tt');
+              //         Navigator.of(context).pop();
+              //       }
+              //     );
+              //   }
+              // ),
+            ],
+          )
+        ),
       ),
     );
   }
@@ -268,7 +376,7 @@ class _TimetableState extends State<TimetableScreen> {
     
   // }
 
-  void addCell() {
+  void addCell() async {
     
     String className = _classText.text;
     String sectionName = _sectionText.text;
@@ -322,6 +430,12 @@ class _TimetableState extends State<TimetableScreen> {
         tt[className] = {sectionName: sectionMap};
       }
     });
+
+    // Store the tt string locally using shared preferences
+    String ttJson = json.encode(tt);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('tt', ttJson);
+
     updateTT(tt);
     print("$tt");
   }
