@@ -116,7 +116,6 @@ class _TimetableState extends State<TimetableScreen> {
                             ),
                           ],
                         ),
-                        // Add other form fields and widgets here
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -150,6 +149,11 @@ class _TimetableState extends State<TimetableScreen> {
                                 _endTimeText,
                               ),
                             ),
+                          ]
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             SizedBox(width: 10),
                             Expanded(
                               // flex: 1,
@@ -180,6 +184,11 @@ class _TimetableState extends State<TimetableScreen> {
                                 _roomText,
                               ),
                             ),
+                          ]
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             SizedBox(width: 10),
                             Expanded(
                               // flex: 1,
@@ -210,18 +219,6 @@ class _TimetableState extends State<TimetableScreen> {
                                 _dayText,
                               ),
                             ),
-                            SizedBox(height: 20),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => TableWidget(tt: tt),
-                                    ),
-                                  );
-                                },
-                                child: Text('Print Table'),
-                              ),
                           ],
                         ),
                       ],
@@ -230,10 +227,10 @@ class _TimetableState extends State<TimetableScreen> {
                 ),
                 _isLoading
                     ? const CircularProgressIndicator()
-                    : UtilsWidgets.buildRoundBtn('add'.tr, () async {
+                    : UtilsWidgets.buildRoundBtn('add'.tr + "/" + 'update'.tr, () async {
                         if (_formKey.currentState!.validate()) {
                           UtilsWidgets.bottomDialogs(
-                              'addalert'.tr, 
+                              'addalert'.tr + '/' + 'update'.tr, 
                               'alert'.tr,
                               'cancel'.tr, 
                               'submit'.tr,
@@ -245,6 +242,18 @@ class _TimetableState extends State<TimetableScreen> {
                           });
                         }
                       }),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TableWidget(tt: tt),
+                      ),
+                    );
+                  },
+                  child: Text('Print Table'),
+                ),
               ],
             )),
       ),
@@ -321,79 +330,6 @@ class _TimetableState extends State<TimetableScreen> {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-
-// class TableWidget extends StatelessWidget {
-//   final Map<String, dynamic> tt;
-
-//   TableWidget({required this.tt});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: SingleChildScrollView(
-//         scrollDirection: Axis.horizontal,
-//         child: DataTable(
-//           columns: _buildColumns(),
-//           rows: _buildRows(),
-//         ),
-//       ),
-//     );
-//   }
-
-//   List<DataColumn> _buildColumns() {
-//     return [
-//       DataColumn(label: Text('Monday')),
-//       DataColumn(label: Text('Tuesday')),
-//       DataColumn(label: Text('Wednesday')),
-//       DataColumn(label: Text('Thursday')),
-//       DataColumn(label: Text('Friday')),
-//       DataColumn(label: Text('Saturday')),
-//       DataColumn(label: Text('Sunday')),
-//     ];
-//   }
-
-//   List<DataRow> _buildRows() {
-//     List<DataRow> rows = [];
-//     tt.forEach((classKey, classValue) {
-//       classValue.forEach((sectionKey, sectionValue) {
-//         sectionValue.forEach((dayKey, dayValue) {
-//           rows.add(DataRow(cells: [
-//             for (int i = 0; i < 7; i++)
-//               DataCell(
-//                 _buildCellData(dayValue.entries.toList(), i),
-//               ),
-//           ]));
-//         });
-//       });
-//     });
-//     return rows;
-//   }
-
-//   Widget _buildCellData(List<MapEntry<String, Map<String, dynamic>>> entries,
-//       int dayIndex) {
-//     List<Widget> cellData = [];
-
-//     for (var entry in entries) {
-//       if (entry.key.endsWith('$dayIndex')) {
-//         cellData.add(Text(entry.value['subject']));
-//         cellData.add(Text(entry.value['endTime']));
-//         cellData.add(Text(entry.value['room']));
-//         cellData.add(Text(entry.value['teacher']));
-//         break;
-//       }
-//     }
-
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: cellData,
-//     );
-//   }
-// }
-
-
-
-
-
 
 
 
@@ -637,71 +573,3 @@ class _TimetableState extends State<TimetableScreen> {
 //       ),
 //     );
 //   }
-
-
-
-// void addCell() {
-//   String className = _classText.text;
-//   String sectionName = _sectionText.text;
-//   String dayName = _dayText.text;
-//   String intime = _startTimeText.text;
-  
-//   // Check if the class already exists in the tt map
-//   if (tt.containsKey(className)) {
-//     // If the class already exists, get its corresponding section map
-//     Map<String, Map<String, Map<String, String>>> classMap = tt[className]!;
-    
-//     // Check if the section already exists in the class map
-//     if (classMap.containsKey(sectionName)) {
-//       // If the section already exists, get its corresponding day map
-//       Map<String, Map<String, String>> sectionMap = classMap[sectionName]!;
-      
-//       // Check if the day already exists in the section map
-//       if (sectionMap.containsKey(dayName)) {
-//         // If the day already exists, update its intime
-//         sectionMap[dayName]![intime] = {
-//           'subject': _subjectText.text,
-//           'endTime': _endTimeText.text,
-//           'room': _roomText.text,
-//           'teacher': _teacherText.text,
-//         };
-//       } else {
-//         // If the day doesn't exist, create a new day map and add it to the section map
-//         sectionMap[dayName] = {
-//           intime: {
-//             'subject': _subjectText.text,
-//             'endTime': _endTimeText.text,
-//             'room': _roomText.text,
-//             'teacher': _teacherText.text,
-//           },
-//         };
-//       }
-//     } else {
-//       // If the section doesn't exist, create a new section map and add it to the class map
-//       classMap[sectionName] = {
-//         dayName: {
-//           intime: {
-//             'subject': _subjectText.text,
-//             'endTime': _endTimeText.text,
-//             'room': _roomText.text,
-//             'teacher': _teacherText.text,
-//           },
-//         },
-//       };
-//     }
-//   } else {
-//     // If the class doesn't exist, create a new class map and add it to tt
-//     tt[className] = {
-//       sectionName: {
-//         dayName: {
-//           intime: {
-//             'subject': _subjectText.text,
-//             'endTime': _endTimeText.text,
-//             'room': _roomText.text,
-//             'teacher': _teacherText.text,
-//           },
-//         },
-//       },
-//     };
-//   }
-// }
