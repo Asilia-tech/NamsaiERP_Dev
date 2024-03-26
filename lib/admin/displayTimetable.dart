@@ -37,9 +37,9 @@ class _TableState extends State<TableWidget> {
                 UtilsWidgets.searchAbleDropDown(
                   context,
                   classList,
-                  'Class',
-                  'Choose a class',
-                  'Class',
+                  'class'.tr,
+                  'chooseclass'.tr,
+                  'class'.tr,
                   const Icon(Icons.search),
                   (value) {
                     if (value != null) {
@@ -48,14 +48,14 @@ class _TableState extends State<TableWidget> {
                       });
                     }
                   },
-                  'Choose a class',
+                  'chooseclass'.tr,
                   Colors.black,
-                  'Choose a class',
+                  'chooseclass'.tr,
                   (value) {
-                    if (value == 'Choose a class' ||
+                    if (value == 'chooseclass'.tr ||
                         value == null ||
                         value.toString().isEmpty) {
-                      return 'please'.tr + 'Choose a class';
+                      return 'please'.tr + 'chooseclass'.tr;
                     }
                     return null;
                   }
@@ -64,9 +64,9 @@ class _TableState extends State<TableWidget> {
                 UtilsWidgets.searchAbleDropDown(
                   context,
                   sectionList,
-                  'Section',
-                  'Choose a section',
-                  'Section',
+                  'section'.tr,
+                  'choosesection'.tr,
+                  'section'.tr,
                   const Icon(Icons.search),
                   (value) {
                     if (value != null) {
@@ -75,14 +75,14 @@ class _TableState extends State<TableWidget> {
                       });
                     }
                   },
-                  'Choose a section',
+                  'choosesection'.tr,
                   Colors.black,
-                  'Choose a section',
+                  'choosesection'.tr,
                   (value) {
-                    if (value == 'Choose a section' ||
+                    if (value == 'choosesection'.tr ||
                         value == null ||
                         value.toString().isEmpty) {
-                      return 'please'.tr + 'Choose a section';
+                      return 'please'.tr + 'choosesection'.tr;
                     }
                     return null;
                   }
@@ -138,8 +138,12 @@ class _TableState extends State<TableWidget> {
         // Get the timetable data for the current day
         Map<String, dynamic>? dayData = sectionData[day];
         if (dayData != null) {
-          // Iterate over each startTime for the current day
-          dayData.forEach((startTime, info) {
+          // Convert entries to a list, sort it, and then iterate
+          List<MapEntry<String, dynamic>> sortedEntries = dayData.entries.toList()
+            ..sort((a, b) => a.key.compareTo(b.key));
+          sortedEntries.forEach((entry) {
+            String startTime = entry.key;
+            Map<String, dynamic> info = entry.value;
             if (!rowIndex.containsKey(startTime)) {
               // If the startTime doesn't exist in the rowIndex, create a new row
               List<DataCell> cells = List.filled(_buildColumns().length, DataCell(Container())); // Fill cells list with empty cells
@@ -184,15 +188,6 @@ class _TableState extends State<TableWidget> {
   }
   return rows;
 }
-
-
-
-
-
-
-
-
-
 
 
 }

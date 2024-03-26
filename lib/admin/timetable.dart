@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:numsai/constants.dart';
 import 'package:numsai/utils/function_utils.dart';
 import 'package:numsai/utils/widget_utils.dart';
+import 'package:numsai/utils/local_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -111,9 +112,9 @@ class _TimetableState extends State<TimetableScreen> {
                             child: UtilsWidgets.searchAbleDropDown(
                               context,
                               classList,
-                              'Class',
-                              'Choose a class',
-                              'Class',
+                              'class'.tr,
+                              'chooseclass'.tr,
+                              'class'.tr,
                               const Icon(Icons.search),
                               (value) {
                                 if (value != null) {
@@ -122,14 +123,14 @@ class _TimetableState extends State<TimetableScreen> {
                                   });
                                 }
                               },
-                              'Choose a class',
+                              'chooseclass'.tr,
                               Colors.black,
-                              'Choose a class',
+                              'chooseclass'.tr,
                               (value) {
-                                if (value == 'Choose a class' ||
+                                if (value == 'chooseclass'.tr ||
                                     value == null ||
                                     value.toString().isEmpty) {
-                                  return 'please'.tr + 'Choose a class';
+                                  return 'please'.tr + 'chooseclass'.tr;
                                 }
                                 return null;
                               }
@@ -140,9 +141,9 @@ class _TimetableState extends State<TimetableScreen> {
                             child: UtilsWidgets.searchAbleDropDown(
                               context,
                               sectionList,
-                              'Section',
-                              'Choose a section',
-                              'Section',
+                              'section'.tr,
+                              'choosesection'.tr,
+                              'section'.tr,
                               const Icon(Icons.search),
                               (value) {
                                 if (value != null) {
@@ -151,14 +152,14 @@ class _TimetableState extends State<TimetableScreen> {
                                   });
                                 }
                               },
-                              'Choose a section',
+                              'choosesection'.tr,
                               Colors.black,
-                              'Choose a section',
+                              'choosesection'.tr,
                               (value) {
-                                if (value == 'Choose a section' ||
+                                if (value == 'choosesection'.tr ||
                                     value == null ||
                                     value.toString().isEmpty) {
-                                  return 'please'.tr + 'Choose a section';
+                                  return 'please'.tr + 'choosesection'.tr;
                                 }
                                 return null;
                               }
@@ -174,7 +175,7 @@ class _TimetableState extends State<TimetableScreen> {
                             child: Column(
                               children: [
                                 UtilsWidgets.buildSqureBtn(
-                                  'Start Time',
+                                  'starttime'.tr,
                                   () async {
                                     TimeOfDay? pickedTime = await showTimePicker(
                                       context: context,
@@ -189,7 +190,7 @@ class _TimetableState extends State<TimetableScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  _startTimeText.text.isNotEmpty ? _startTimeText.text : 'Choose Start Time',
+                                  _startTimeText.text.isNotEmpty ? _startTimeText.text : 'choosestarttime'.tr,
                                   style: TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -200,7 +201,7 @@ class _TimetableState extends State<TimetableScreen> {
                             child: Column(
                               children: [
                                 UtilsWidgets.buildSqureBtn(
-                                  'End Time',
+                                  'endtime'.tr,
                                   () async {
                                     TimeOfDay? pickedTime = await showTimePicker(
                                       barrierDismissible: false,
@@ -216,7 +217,7 @@ class _TimetableState extends State<TimetableScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  _endTimeText.text.isNotEmpty ? _endTimeText.text : 'Choose End Time',
+                                  _endTimeText.text.isNotEmpty ? _endTimeText.text : 'chooseendtime'.tr,
                                   style: TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -232,11 +233,11 @@ class _TimetableState extends State<TimetableScreen> {
                             // flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter the subject",
+                              "entersubject".tr,
                               'Eg. Science',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return 'please' + "enter the subject";
+                                  return 'please'.tr + "entersubject".tr;
                                 }
                               },
                               _subjectText,
@@ -247,11 +248,11 @@ class _TimetableState extends State<TimetableScreen> {
                             // flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter the room",
+                              "enterroom".tr,
                               'Eg. 5',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return 'please' + "enter the room";
+                                  return 'please'.tr + "enterroom".tr;
                                 }
                               },
                               _roomText,
@@ -267,11 +268,11 @@ class _TimetableState extends State<TimetableScreen> {
                             // flex: 1,
                             child: UtilsWidgets.textFormField(
                               context,
-                              "Enter the teacher",
+                              "enterteachername".tr,
                               'Eg. Manoj',
                               (p0) {
                                 if (p0 == null || p0.isEmpty) {
-                                  return 'please' + "enter the teacher";
+                                  return 'please'.tr + "enterteachername".tr;
                                 }
                               },
                               _teacherText,
@@ -284,9 +285,9 @@ class _TimetableState extends State<TimetableScreen> {
                             UtilsWidgets.searchAbleDropDown(
                               context,
                               daysList,
-                              'Days',
-                              'Choose a day',
-                              'Days',
+                              'days'.tr,
+                              'chooseday'.tr,
+                              'days'.tr,
                               const Icon(Icons.search),
                               (value) {
                                 if (value != null) {
@@ -295,14 +296,14 @@ class _TimetableState extends State<TimetableScreen> {
                                   });
                                 }
                               },
-                              'Choose a day',
+                              'chooseday'.tr,
                               Colors.black,
-                              'Choose a day',
+                              'chooseday'.tr,
                               (value) {
-                                if (value == 'Choose a day' ||
+                                if (value == 'chooseday'.tr ||
                                     value == null ||
                                     value.toString().isEmpty) {
-                                  return 'please'.tr + 'Choose a day';
+                                  return 'please'.tr + 'chooseday'.tr;
                                 }
                                 return null;
                               }
@@ -333,7 +334,7 @@ class _TimetableState extends State<TimetableScreen> {
                       }
                     }),
               SizedBox(height: 20),
-              UtilsWidgets.buildRoundBtn('Print' + 'timetable'.tr, () {
+              UtilsWidgets.buildRoundBtn('print'.tr + 'timetable'.tr, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
