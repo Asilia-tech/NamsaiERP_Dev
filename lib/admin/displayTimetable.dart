@@ -1,6 +1,3 @@
-//make form inputs proper validationa nd dropdown etc
-//displaying the table should be done
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:numsai/utils/local_string.dart';

@@ -93,7 +93,7 @@ class BuildDrawer {
                   : Get.to(SchoolList());
             }),
             UtilsWidgets.drawerTile(
-                context, Icons.edit_square, 'timetable'.tr, () {
+                context, Icons.calendar_today, 'timetable'.tr, () {
               !isConnected
                   ? UtilsWidgets.showGetDialog(context,
                       "Please check your internet connection.", Colors.red)

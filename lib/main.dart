@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:numsai/screens/login_page.dart';
 import 'package:numsai/screens/splash_page.dart';
 import 'package:numsai/admin/timetable.dart';
+import 'package:numsai/admin/intro_screen.dart';
 import 'package:numsai/constants.dart';
 import 'package:numsai/utils/local_string.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const TimetableScreen(),
+      home: Intro(),
       initialRoute: '/',
       routes: {
         '/login': (context) => const PhoneLogin(),
